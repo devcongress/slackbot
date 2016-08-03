@@ -1,0 +1,19 @@
+{
+  "name": "devcongress_bot",
+  "version": "0.1.0",
+  "description": "DevCongress slack bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrew Smith",
+  "license": "MIT",
+  "dependencies": {
+    "botkit": "^0.2.2",
+    "node-schedule": "^1.1.1"
+  },
+  "engines": {
+    "node": "6.3.1"
+  }
+}
