@@ -49,9 +49,9 @@ bot.startRTM(function (err) {
 });
 
 // Load commands here
-let greetingCommand = require('./commands/greeting.js');
-let welcomeCommand = require('./commands/welcome.js')(appName, channelIdForGeneral);
-let morningConvoCommand = require('./commands/morning_conversation.js')(appName, channelIdForGeneral);
+let greetingCommand = require('./commands/greeting');
+let welcomeCommand = require('./commands/welcome')(appName, channelIdForGeneral);
+let morningConvoCommand = require('./commands/morning_conversation')(appName, channelIdForGeneral);
 let forexConversionCommand = require('./commands/forex');
 
 let goodMorningGreetingCommand = greetingCommand(channelIdForGeneral, bot);
@@ -68,20 +68,14 @@ controller.on('user_channel_join', welcomeCommand);
 // controller.on('bot_channel_join', welcomeCommand);
 
 // Morning Conversation command
-controller.on(['morning', 'Good morning'], ['mention'], morningConvoCommand);
+controller.hears(['morning', 'Good morning'], ['direct_message', 'direct_mention', 'mention'], morningConvoCommand);
 
 // Morning Conversation command
-controller.hears(['(?=.)^gbp \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'], ['direct_message', 'direct_mention', 'mention'], (bot, message) => {
-  forexConversionCommand(bot, message, 'gbp', '£')
-});
+controller.hears(['(?=.)^gbp \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'], ['direct_message', 'direct_mention', 'mention'], forexConversionCommand('gbp', '£'));
 
-controller.hears(['(?=.)^usd \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'], ['direct_message', 'direct_mention', 'mention'], (bot, message) => {
-  forexConversionCommand(bot, message, 'usd', '$')
-});
+controller.hears(['(?=.)^usd \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'], ['direct_message', 'direct_mention', 'mention'], forexConversionCommand('usd', '$'));
 
-controller.hears(['(?=.)^eur \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'], ['direct_message', 'direct_mention', 'mention'], (bot, message) => {
-  forexConversionCommand(bot, message, 'eur', '€')
-});
+controller.hears(['(?=.)^eur \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'], ['direct_message', 'direct_mention', 'mention'], forexConversionCommand('eur', '€'));
 
 // controller.hears(['hello','hi'],['direct_message','direct_mention','mention'], (bot,message) => bot.reply(message,"Hello."));
 
