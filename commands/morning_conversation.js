@@ -2,14 +2,23 @@
  * Morning converation with user
  * @author Andrew Smith <a.smith@silentworks.co.uk>
  */
-module.exports = (appName) => {
+module.exports = appName => {
   return (bot, message) => {
     let howAreYou = (response, convo) => {
-      let message = 'How are you today?';
-      let messageResponse = 'I hope you will have a very productive day today.';
-      convo.ask('How are you today?', (response, convo) => {
-        console.log(new Date() + ' - ' + message, response);
-        convo.say('I hope you will have a very productive day today.');
+      // Show bot is typing for best UX
+      bot.startTyping(message);
+
+      let replyMsg = 'How are you today?';
+      let replyMsgResponse = 'I hope you will have a very productive day today.';
+      
+      convo.ask(replyMsg, (response, convo) => {
+        // log message and response object for debugging later
+        console.log(new Date() + ' - ' + replyMsg, response);
+        
+        // Show bot is typing for best UX
+        bot.startTyping(message);
+        
+        convo.say(replyMsgResponse);
         convo.next();
       });
     }

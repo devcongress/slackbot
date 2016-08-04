@@ -2,7 +2,7 @@
  * Say Welcome to new members when they join
  * @author Andrew Smith <a.smith@silentworks.co.uk>
  */
-let helpers = require('../helpers.js');
+let helpers = require('../helpers');
 
 module.exports = (appName, channelIdForGeneral) => {
   return (bot, message) => {
