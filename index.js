@@ -13,7 +13,7 @@
 */
 let Botkit = require('botkit');
 
-// To schedule to bot to say things at a certain date/time or recurringly
+// To schedule the bot to say words at a certain date/time or recurringly
 let schedule = require('node-schedule');
 
 if (!process.env.token) {
@@ -49,6 +49,7 @@ bot.startRTM(function(err) {
 // Load commands here
 let greetingCommand = require('./commands/greeting.js');
 let welcomeCommand = require('./commands/welcome.js')(appName, channelIdForGeneral);
+let morningConvoCommand = require('./commands/morning_conversation.js')(appName, channelIdForGeneral);
 
 let goodMorningGreetingCommand = greetingCommand(channelIdForGeneral, bot);
 let goodNightGreetingCommand = greetingCommand(channelIdForGeneral, bot, `Good night ${appName}`);
@@ -62,6 +63,9 @@ controller.on('user_channel_join', welcomeCommand);
 
 // Welcome for bot when it joins a channel - only used for testing
 // controller.on('bot_channel_join', welcomeCommand);
+
+// Morning Conversation command
+controller.hears(['morning', 'Good morning'], ['mention'], morningConvoCommand);
 
 // controller.hears(['hello','hi'],['direct_message','direct_mention','mention'], (bot,message) => bot.reply(message,"Hello."));
 
