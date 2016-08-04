@@ -13,7 +13,7 @@
 */
 let Botkit = require('botkit');
 
-// To schedule to bot to say things at a certain date/time or recurringly
+// To schedule the bot to say words at a certain date/time or recurringly
 let schedule = require('node-schedule');
 
 if (!process.env.token) {
