@@ -2,7 +2,11 @@
 
 ## Introduction
 
-> A simple slackbot that welcome new members and greet in the morning and night.
+> A simple slackbot for the DevCongress slack, which does tasks including:
+
+- welcome new members
+- greet in the morning and night
+- forex echange to GH¢ e.g. `@botname usd 20`
 
 ## Commands
 
@@ -10,7 +14,29 @@ You can add new commands under the `commands` directory and load them into the `
 
 ## Installation
 
-> git clone https://github.com/silentworks/slackbot
+Clone the repository
+
+> git clone https://github.com/devcongress/slackbot
+
+Go to your terminal and navigate to the directory you cloned the code to and run
+
+```bash
+npm install
+```
+
+### Run the Bot:
+
+Get a Bot token from Slack:
+
+> http://my.slack.com/services/new/bot
+
+Run your bot from the command line:
+    
+```basb
+token=<MY TOKEN> node index.js
+```
+
+The bot is written with botkit which you can learn more about it here [http://howdy.ai/botkit](http://howdy.ai/botkit)
 
 ## License
 
