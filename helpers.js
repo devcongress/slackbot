@@ -38,7 +38,7 @@ helpers.convertForex = (amount, base) => {
                 // Parse HTML with cheerio
                 let $ = cheerio.load(html);
                 // jQuery style selector
-                let result = $('tr.uccRes').children('td.rightCol').text().replace("GHS", "");
+                let result = $('tr.uccRes').children('td.rightCol').text().replace("GHS", "").replace(/\s\s*$/, '');
                 // resolve promise if successful
                 resolve({
                     amount: `GH¢ ${result}`,
