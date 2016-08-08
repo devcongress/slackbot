@@ -25,6 +25,7 @@ if (!process.env.token) {
 
 let appName = 'MyApp';
 let channelIdForGeneral = '';
+let iconUrl = '';
 
 if (process.env.appName) {
   appName = process.env.appName;
@@ -32,6 +33,10 @@ if (process.env.appName) {
 
 if (process.env.generalId) {
   channelIdForGeneral = process.env.generalId;
+}
+
+if (process.env.iconUrl) {
+  iconUrl = process.env.iconUrl;
 }
 
 let controller = Botkit.slackbot({
@@ -54,8 +59,8 @@ let welcomeCommand = require('./commands/welcome')(appName, channelIdForGeneral)
 let morningConvoCommand = require('./commands/morning_conversation')(appName, channelIdForGeneral);
 let forexConversionCommand = require('./commands/forex');
 
-let goodMorningGreetingCommand = greetingCommand(channelIdForGeneral, bot);
-let goodNightGreetingCommand = greetingCommand(channelIdForGeneral, bot, `Good night ${appName}`);
+let goodMorningGreetingCommand = greetingCommand(channelIdForGeneral, iconUrl, bot);
+let goodNightGreetingCommand = greetingCommand(channelIdForGeneral, iconUrl, bot, `Good night ${appName}`);
 
 // scheduled messages
 schedule.scheduleJob('30 9 * * *', goodMorningGreetingCommand);
