@@ -33,7 +33,11 @@ function stripCommas(invalidNumber) {
  */
 helpers.convertForex = (amount, base) => {
     return new Promise((resolve, reject) => {
-        request(`http://www.xe.com/currencyconverter/convert/?Amount=${amount}&From=${base}&To=GHS`, { headers: { 'User-Agent': random_ua.generate() } }, (error, response, html) => {
+        request(`http://www.xe.com/currencyconverter/convert/?Amount=${amount}&From=${base}&To=GHS`, {
+            headers: {
+                'User-Agent': random_ua.generate()
+            }
+        }, (error, response, html) => {
             if (!error && response.statusCode == 200) {
                 // Parse HTML with cheerio
                 let $ = cheerio.load(html);
@@ -44,6 +48,50 @@ helpers.convertForex = (amount, base) => {
                     amount: `GH¢ ${result}`,
                     exchangeRate: (stripCommas(result) / amount).toFixed(2)
                 });
+            } else {
+                // reject if an error, false for if there was no error but status code wasn't 200
+                reject(error || false);
+            }
+        })
+    });
+}
+
+/**
+ * Create a helper method to scrape definitions from www.urbandictionary.com
+ * @param  string word
+ * @return Object {url, definition, example}
+ */
+helpers.getDefinition = (word) => {
+    return new Promise((resolve, reject) => {
+        const url = `http://www.urbandictionary.com/define.php?term=${word}`;
+        request(url, {
+            headers: {
+                'User-Agent': random_ua.generate()
+            }
+        }, (error, response, html) => {
+            if (!error && response.statusCode == 200) {
+                // Parse HTML with cheerio
+                let $ = cheerio.load(html);
+                // jQuery style selector
+                let defPanel = $('div.def-panel').first();
+                if (!defPanel.children().is('div.no-results')) {
+                    let definition = defPanel.children('div.meaning').text();
+                    let example = defPanel.children('div.example').text() || 'No Examples here, move along';
+                    // resolve promise if successful
+                    resolve({
+                        url,
+                        definition,
+                        example
+                    });
+                } else {
+                    // reject if no definition was found
+                    resolve({
+                        url,
+                        definition: '¯\\_(ツ)_/¯',
+                        example: 'No Examples here, move along'
+                    });
+                }
+
             } else {
                 // reject if an error, false for if there was no error but status code wasn't 200
                 reject(error || false);
