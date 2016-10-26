@@ -14,7 +14,7 @@ module.exports = (appName, channelIdForGeneral) => {
       }, (err, data) => {
         if (data && data.user && data.user.name) {
           let userHandle = helpers.createUserHandle(message.user, data.user.name);
-          let replyMsg = `Welcome to ${appName} ${userHandle}`;
+          let replyMsg = `Welcome to ${appName} ${userHandle}. Remember to fill out the 'What I do' section of your profile.`;
           console.log(new Date() + ' - ' + replyMsg);
           bot.reply(message, replyMsg);
         }
