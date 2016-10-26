@@ -58,7 +58,7 @@ let greetingCommand = require('./commands/greeting');
 let welcomeCommand = require('./commands/welcome')(appName, channelIdForGeneral);
 let morningConvoCommand = require('./commands/morning_conversation')(appName, channelIdForGeneral);
 let forexConversionCommand = require('./commands/forex');
-let definitionCommand = require('./commands/definition');
+let definitionCommand = require('./commands/definition')();
 
 let goodMorningGreetingCommand = greetingCommand(channelIdForGeneral, iconUrl, bot);
 let goodNightGreetingCommand = greetingCommand(channelIdForGeneral, iconUrl, bot, `Good night ${appName}`);
