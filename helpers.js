@@ -4,7 +4,7 @@ const request = require('request');
 const random_ua = require('random-ua');
 const cheerio = require('cheerio');
 
-var helpers = {};
+const helpers = {};
 
 /**
  * Create a helper method to handle slack user handle creation
@@ -57,8 +57,8 @@ helpers.convertForex = (amount, base) => {
 }
 
 /**
- * Create a helper method to scrape definitions from www.urbandictionary.com
- * @param  string word
+ * A method to scrape definition of word from www.urbandictionary.com
+ * @param  String word
  * @return Object {url, definition, example}
  */
 helpers.getDefinition = (word) => {
@@ -69,7 +69,6 @@ helpers.getDefinition = (word) => {
         'User-Agent': random_ua.generate()
       }
     }, (error, response, html) => {
-      console.log()
       if (!error && response.statusCode == 200) {
         // Parse HTML with cheerio
         let $ = cheerio.load(html);
