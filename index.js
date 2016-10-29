@@ -104,7 +104,7 @@ controller.hears(
 
 // Definition command
 controller.hears(
-  ['define', 'what\'s the meaning of', 'meaning of'],
+  ['define', 'what\'s the meaning of', 'whats the meaning of'],
   ['direct_message', 'direct_mention', 'mention'],
   definitionCommand
 );
