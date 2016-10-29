@@ -4,6 +4,7 @@
  */
 'use strict';
 
+const config = require('../config');
 const getDefinition = require('../helpers').getDefinition;
 
 module.exports = () => {
@@ -20,7 +21,7 @@ module.exports = () => {
         bot.reply(message, {
           text: `*${word}:*\n${result.definition}`,
           attachments: [{
-            color: "#4abfa4",
+            color: config.ATTACHMENT_COLOR,
             text: result.example,
             author_name: `Urban Dictionary | Define '${word}'`,
             author_link: result.url,
