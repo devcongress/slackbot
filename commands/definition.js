@@ -9,7 +9,9 @@ const getDefinition = require('../helpers').getDefinition;
 module.exports = () => {
   return (bot, message) => {
     // Strip message down to word(s) to be defined
-    let word = message.text.split(' ').splice(1, 2).join(' ');
+    let keyword = message.match[0];
+    let word = message.text.replace(keyword, '')
+      .split(' ').splice(1, 2).join(' ');
     // Show bot is typing for best UX
     bot.startTyping(message);
     // Call helper function to do conversion

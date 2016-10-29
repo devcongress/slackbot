@@ -74,24 +74,40 @@ controller.on('user_channel_join', welcomeCommand);
 // controller.on('bot_channel_join', welcomeCommand);
 
 // Morning Conversation command
-controller.hears(['morning', 'Good morning'], ['direct_message', 'direct_mention', 'mention'], morningConvoCommand);
+controller.hears(
+  ['morning', 'Good morning'],
+  ['direct_message', 'direct_mention', 'mention'],
+  morningConvoCommand
+);
 
 // Forex Conversion command
-controller.hears(['(?=.)^gbp \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'], ['direct_message', 'direct_mention', 'mention'], forexConversionCommand('gbp', '£'));
+// Great Britain Pound
+controller.hears(
+  ['(?=.)^gbp \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'],
+  ['direct_message', 'direct_mention', 'mention'],
+  forexConversionCommand('gbp', '£')
+);
 
-controller.hears(['(?=.)^usd \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'], ['direct_message', 'direct_mention', 'mention'], forexConversionCommand('usd', '$'));
+// US Dollar
+controller.hears(
+  ['(?=.)^usd \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'],
+  ['direct_message', 'direct_mention', 'mention'],
+  forexConversionCommand('usd', '$')
+);
 
-controller.hears(['(?=.)^eur \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'], ['direct_message', 'direct_mention', 'mention'], forexConversionCommand('eur', '€'));
+// Euro
+controller.hears(
+  ['(?=.)^eur \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'],
+  ['direct_message', 'direct_mention', 'mention'],
+  forexConversionCommand('eur', '€')
+);
 
 // Definition command
-controller.hears(['define'], ['direct_message', 'direct_mention', 'mention'], definitionCommand);
-
-// controller.hears(['hello','hi'],['direct_message','direct_mention','mention'], (bot,message) => bot.reply(message,"Hello."));
-
-// controller.hears(['dm me'],['direct_message','direct_mention'],function(bot,message) {
-//   bot.startConversation(message,function(err,convo) {
-//     convo.say('Heard ya');
-//   });
+controller.hears(
+  ['define', 'what\'s the meaning of', 'whats the meaning of'],
+  ['direct_message', 'direct_mention', 'mention'],
+  definitionCommand
+);
 
 //   bot.startPrivateConversation(message,function(err,dm) {
 //     dm.say('Private reply!');

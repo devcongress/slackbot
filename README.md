@@ -7,6 +7,7 @@
 - welcome new members
 - greet in the morning and night
 - forex echange to GH¢ e.g. `@botname usd 20`
+- `define` word: grabs the meaning of word from the Urban Dictionary
 
 ## Commands
 
