@@ -25,6 +25,7 @@ if (!process.env.token) {
 
 let appName = 'MyApp';
 let channelIdForGeneral = '';
+let channelIdForRandom = '';
 let iconUrl = '';
 
 if (process.env.appName) {
@@ -33,6 +34,10 @@ if (process.env.appName) {
 
 if (process.env.generalId) {
   channelIdForGeneral = process.env.generalId;
+}
+
+if (process.env.randomId) {
+  channelIdForRandom = process.env.randomId;
 }
 
 if (process.env.iconUrl) {
@@ -62,10 +67,12 @@ let definitionCommand = require('./commands/definition')();
 
 let goodMorningGreetingCommand = greetingCommand(channelIdForGeneral, iconUrl, bot);
 let goodNightGreetingCommand = greetingCommand(channelIdForGeneral, iconUrl, bot, `Good night ${appName}`);
+let getAstronomyPictureOfTheDayCommand = require('./commands/get_astronomy_picture_of_the_day')(channelIdForRandom, iconUrl, bot);
 
 // scheduled messages
 schedule.scheduleJob('30 9 * * *', goodMorningGreetingCommand);
 schedule.scheduleJob('30 23 * * *', goodNightGreetingCommand);
+schedule.scheduleJob('0 13 * * *', getAstronomyPictureOfTheDayCommand);
 
 // Welcome command
 controller.on('user_channel_join', welcomeCommand);

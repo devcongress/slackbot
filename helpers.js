@@ -3,6 +3,7 @@
 const request = require('request');
 const random_ua = require('random-ua');
 const cheerio = require('cheerio');
+const config = require('./config');
 
 /**
  * Create a helper method to strip ',' from amount and return number to 2 decimals
@@ -96,6 +97,21 @@ module.exports = {
           return reject(error || false);
         }
       })
+    });
+  },
+
+  getAstronomyPictureOfTheDay() {
+    return new Promise((resolve, reject) => {
+      const url = config.APOD_API_URL;
+      request(url, (error, resp, body) => {
+        if (resp.statusCode === 200 && resp.headers['content-type'] === 'application/json') {
+          // I think I could be more careful and surround `JSON.parse` with a
+          // try...catch in case unexpectedly we get something back that's not
+          // a JSON string.
+          return resolve(JSON.parse(body))
+        }
+        return reject(error);
+      });
     });
   }
 };
