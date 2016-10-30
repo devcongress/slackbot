@@ -35,5 +35,5 @@ module.exports = (channel, iconUrl, bot) => {
         });
       }).
       catch(err => console.error(err));
-  }
+  };
 };

@@ -26,6 +26,7 @@ if (!process.env.token) {
 let appName = 'MyApp';
 let channelIdForGeneral = '';
 let channelIdForRandom = '';
+let channelIdForEvents = '';
 let iconUrl = '';
 
 if (process.env.appName) {
@@ -38,6 +39,10 @@ if (process.env.generalId) {
 
 if (process.env.randomId) {
   channelIdForRandom = process.env.randomId;
+}
+
+if (process.env.eventsId) {
+  channelIdForEvents = process.env.eventsId;
 }
 
 if (process.env.iconUrl) {
@@ -68,11 +73,15 @@ let definitionCommand = require('./commands/definition')();
 let goodMorningGreetingCommand = greetingCommand(channelIdForGeneral, iconUrl, bot);
 let goodNightGreetingCommand = greetingCommand(channelIdForGeneral, iconUrl, bot, `Good night ${appName}`);
 let getAstronomyPictureOfTheDayCommand = require('./commands/get_astronomy_picture_of_the_day')(channelIdForRandom, iconUrl, bot);
+let announceEventsHappeningTodayCommand = require('./commands/announce_events_happening_today')(channelIdForEvents, iconUrl, bot);
+let announceEventsHappeningTomorrowCommand = require('./commands/announce_events_happening_tomorrow')(channelIdForEvents, iconUrl, bot);
 
 // scheduled messages
 schedule.scheduleJob('30 9 * * *', goodMorningGreetingCommand);
-schedule.scheduleJob('30 23 * * *', goodNightGreetingCommand);
+schedule.scheduleJob('31 9 * * *', announceEventsHappeningTodayCommand);
 schedule.scheduleJob('0 13 * * *', getAstronomyPictureOfTheDayCommand);
+schedule.scheduleJob('0 16 * * *', announceEventsHappeningTomorrowCommand);
+schedule.scheduleJob('30 23 * * *', goodNightGreetingCommand);
 
 // Welcome command
 controller.on('user_channel_join', welcomeCommand);
