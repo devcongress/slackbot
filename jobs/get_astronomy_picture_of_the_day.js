@@ -30,7 +30,7 @@ function getAstronomyPictureOfTheDay() {
   });
 }
 
-module.exports = (channel, iconUrl, bot) => {
+module.exports = (channel, bot) => {
   return () => {
     getAstronomyPictureOfTheDay().
     then(result => {
@@ -52,7 +52,7 @@ module.exports = (channel, iconUrl, bot) => {
         channel,
         attachments,
         as_user: true,
-        icon_url: iconUrl,
+        icon_url: config.ICON_URL,
         text: 'Incoming from https://apod.nasa.gov/apod/astropix.html',
         username: 'NASA',
       });

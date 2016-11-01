@@ -2,9 +2,10 @@
  * Say Welcome to new members when they join
  * @author Andrew Smith <a.smith@silentworks.co.uk>
  */
-let helpers = require('../helpers');
+const helpers = require('../helpers');
+const config = require('../config');
 
-module.exports = (appName, channelIdForGeneral) => {
+module.exports = (channelIdForGeneral) => {
   return (bot, message) => {
     let channelId = message.channel;
 
@@ -14,7 +15,7 @@ module.exports = (appName, channelIdForGeneral) => {
       }, (err, data) => {
         if (data && data.user && data.user.name) {
           let userHandle = helpers.createUserHandle(message.user, data.user.name);
-          let replyMsg = `Welcome to ${appName} ${userHandle}. Remember to fill out the 'What I do' section of your profile.`;
+          let replyMsg = `Welcome to ${config.APP_NAME} ${userHandle}. Remember to fill out the 'What I do' section of your profile.`;
           console.log(new Date() + ' - ' + replyMsg);
           bot.reply(message, replyMsg);
         }
