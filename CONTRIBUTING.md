@@ -8,17 +8,16 @@ There are a few guidelines that we need contributors to follow so that we can ha
 ##Getting Started - How Can I Contribute
 **Quick Overview**
 
-```
 * Make Sure you have a Github Account :)
 * Fork the repository on GitHub
 * Create a topic branch from where you want to base your work.
 	* This is usually the master branch.
 	* Only target other branches if you are certain your fix must be on that branch
 * Make commits of logical units  		
-```
+
 
 ###Submitting Bug Reports
-Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/). After you've determined which repository your bug is related to, create an issue on that repository and provide the following information in the following template.
+Bugs :bug: are tracked as [GitHub issues](https://guides.github.com/features/issues/). After you've identified a bug, create an issue [here](https://github.com/devcongress/slackbot/issues/new) and provide the following information in the following template.
 
 ```
 [Short description of problem here]
@@ -37,22 +36,26 @@ Bugs are tracked as [GitHub issues](https://guides.github.com/features/issues/).
 
 [Describe observed behavior here]
 
+**Additional information:**
+[any other thing you will like to share with regards to the bug]
+
 **Screenshots and GIFs**
 
 ![Screenshots and GIFs which follow reproduction steps to demonstrate the problem](url)
+
+
+```
+```
+[These are optional, add them to the Bug report if you must!]
 
 **Botkit version:** [Enter Botkit version here]
 **OS and version:** [Enter OS name and version here]
 
 **Installed packages:**
-
 [List of installed packages here]
 
-**Additional information:**
-[any other thing you will like to share with regards to the bug]
-
 ```
- 
+
 
 ### Submitting Issues
 
@@ -94,7 +97,7 @@ Adopted from [Howdyai/botkit](https://github.com/howdyai/botkit/blob/master/CONT
 * Using a plain `return` when returning explicitly at the end of a function.
   * Not `return null`, `return undefined`, `null`, or `undefined`
 
-  
+
 ### Git Commit Messages
 
 * Use the present tense ("Add feature" not "Added feature")
