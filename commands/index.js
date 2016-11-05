@@ -1,5 +1,6 @@
 'use strict'
 
+// Load commands here
 const forexConversionCommand = require('./forex');
 const {
   definitionCommand,
@@ -8,6 +9,9 @@ const {
 const morningConvoCommand = require('./morning_conversation');
 
 module.exports = (controller) => {
+
+  // Register commands here
+
   // Morning Conversation command
   controller.hears(
     ['morning', 'Good morning'], ['direct_message', 'direct_mention', 'mention'],
