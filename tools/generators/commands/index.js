@@ -11,7 +11,6 @@ module.exports = {
     type: 'input',
     name: 'name',
     message: 'What is the name of the command?',
-    default: 'dummy',
     validate: (value) => {
       if (value.length < 1 || value.includes(' ')) {
         return 'A name is required and should be 1 word with no spaces';

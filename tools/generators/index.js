@@ -5,7 +5,9 @@
  */
 
 const commandGenerator = require('./commands/index.js');
+const eventHandlerGenerator = require('./events/index');
 
 module.exports = (plop) => {
   plop.setGenerator('command', commandGenerator);
+  plop.setGenerator('eventHandler', eventHandlerGenerator);
 };
