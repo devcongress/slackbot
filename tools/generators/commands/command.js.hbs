@@ -1,0 +1,81 @@
+/**
+ * {{sentenceCase description}}
+ * @author {{author}} <{{email}}>
+ */
+
+'use strict';
+
+const config = require('../config');
+
+/**
+ * TODO: Replace this handler with logic to handle your command
+ * @param  String message
+ * @return String
+ */
+function handleCommand(message) {
+  return new Promise((resolve, reject) => {
+    if (message.length % 2 === 0) {
+      // resolve promise if successful
+      resolve(`You said ${message}`);
+    } else {
+      // reject if an error, false for if there was no error but status code wasn't 200
+      reject('Uh-oh! Something bad happened');
+    }
+  });
+}
+
+module.exports = (bot, message) => {
+  // Show bot is typing for best UX
+  bot.startTyping(message);
+
+  handleCommand(message.text.trim())
+    .then(response => {
+
+      // send a simple reply
+      bot.reply(message, response);
+
+      // send a custom reply
+      bot.reply(message, {
+        text: "A more complex response",
+        username: "ReplyBot",
+        icon_emoji: ":dash:",
+      });
+
+      // send a reply with an attachment
+      const reply_with_attachments = {
+        'username': 'My bot',
+        'text': 'This is a pre-text',
+        'attachments': [{
+          'fallback': 'To be useful, I need you to invite me in a channel.',
+          'title': 'How can I help you?',
+          'text': 'To be useful, I need you to invite me in a channel ',
+          'color': '#7CD197'
+        }],
+        'icon_url': 'http://lorempixel.com/48/48'
+      }
+
+      bot.reply(message, reply_with_attachments);
+
+      // say something, ie. send a new message that isn't a reply eg. announce something
+      // to a channel in response to the command
+      bot.say(message, {
+        text: "Some useful message",
+        channel: "#random"
+      });
+
+      // start a conversation with the user https://github.com/howdyai/botkit/blob/master/readme.md#botstartconversation
+      // store information https://github.com/howdyai/botkit/blob/master/readme.md#storing-information
+      // call a slack api method https://github.com/howdyai/botkit/blob/master/readme-slack.md#using-the-slack-web-api
+    })
+    .catch(err => {
+      console.log(err);
+
+      // post error details to admin channel
+      bot.say(message, {
+        text: JSON.stringify(err),
+        channel: "#admin"
+      });
+
+      bot.reply(message, 'Oh my...something embarassing happened. Try again.');
+    });
+};
