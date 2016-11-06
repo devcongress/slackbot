@@ -27,6 +27,13 @@ module.exports = {
     name: 'event',
     message: 'What event should trigger this handler?\n(Check https://api.slack.com/events ' +
       'and https://github.com/howdyai/botkit/blob/master/readme-slack.md#slack-specific-events for available events)',
+    validate: (value) => {
+      if (value.length < 1) {
+        return 'An event is required';
+      }
+
+      return true;
+    },
   }, {
     type: 'input',
     name: 'author',
