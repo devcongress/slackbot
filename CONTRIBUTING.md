@@ -11,7 +11,7 @@ There are a few guidelines that we need contributors to follow so that we can ha
 * Make Sure you have a Github Account :)
 * Fork the repository on GitHub
 * Create a topic branch from where you want to base your work.
-	* This is usually the master branch.
+	* This is usually the develop branch.
 	* Only target other branches if you are certain your fix must be on that branch
 * Make commits of logical units  		
 
