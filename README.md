@@ -33,7 +33,7 @@ Get a Bot token from Slack:
 
 Run your bot from the command line:
     
-```basb
+```bash
 token=<MY TOKEN> node index.js
 ```
 
