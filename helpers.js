@@ -1,5 +1,8 @@
 'use strict';
 
+const config = require('config');
+const gcal = require('googleapis').calendar('v3');
+
 module.exports = {
   /**
    * Create a helper method to strip ',' from amount and return number to 2 decimals
@@ -50,7 +53,7 @@ module.exports = {
    * @return Date
    */
   getNextDay(datetime) {
-    const day = getStartOfDay(datetime);
+    const day = this.getStartOfDay(datetime);
     day.setHours(24);
 
     return day;
@@ -68,5 +71,41 @@ module.exports = {
    */
   pluralize(count, word) {
     Math.abs(count) === 1 ? String(word) : String(word) + 's';
+  },
+
+  /**
+   * @param {String} when
+   */
+  getEventsFor(when) {
+    if (when !== 'today' && when !== 'tomorrow') return;
+
+    let timeMax, timeMin, now = new Date;
+
+    if (when === 'today') {
+      timeMax = this.getNextDay(now).toISOString();
+      timeMin = this.getStartOfDay(now).toISOString();
+    } else {
+      timeMax = this.getNextDay(this.getNextDay(now)).toISOString();
+      timeMin = this.getNextDay(now).toISOString();
+    }
+
+    return new Promise((resolve, reject) => {
+      gcal.events.list({
+        timeMax,
+        timeMin,
+        auth: config.GCAL_API_KEY,
+        calendarId: config.GHANA_TECH_CAL_ID
+      }, callback(resolve, reject));
+    });
+
+
+    function callback(resolve, reject) {
+      return function(err, data) {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(data.items);
+      };
+    }
   }
 };

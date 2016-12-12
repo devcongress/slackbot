@@ -20,7 +20,7 @@ module.exports = (bot, message) => {
       convo.say(replyMsgResponse);
       convo.next();
     });
-  }
+  };
 
   bot.startConversation(message, howAreYou);
 };

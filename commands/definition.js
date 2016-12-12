@@ -21,7 +21,7 @@ const config = require('../config');
 function definitionBuilder(previousDt, currentDt) {
   return currentDt._ ?
     `${previousDt} ${sanitizeAndFormatWord(currentDt._)}` :
-    `${previousDt} ${sanitizeAndFormatWord(currentDt)}`
+    `${previousDt} ${sanitizeAndFormatWord(currentDt)}`;
 }
 
 /**
@@ -40,7 +40,7 @@ function sanitizeAndFormatWord(word) {
  * @return string 
  */
 function dictionaryApiUrlBuilder(word) {
-  return `${config.DICTIONARY_API_BASE_URL}/${word}?key=${process.env.DICTIONARY_API_KEY}`
+  return `${config.DICTIONARY_API_BASE_URL}/${word}?key=${process.env.DICTIONARY_API_KEY}`;
 }
 
 /**
@@ -83,7 +83,7 @@ function getUrbanDefinition(word) {
         // reject if an error, false for if there was no error but status code wasn't 200
         return reject(error || false);
       }
-    })
+    });
   });
 }
 
@@ -121,15 +121,15 @@ function getDefinition(word) {
             } else {
               return resolve({
                 url,
-                definition: `Word does not compute. Sending request to London SW1A 1AA, United Kingdom`
+                definition: 'Word does not compute. Sending request to London SW1A 1AA, United Kingdom'
               });
             }
           });
         } catch (error) {
-          reject(error)
+          reject(error);
         }
       }
-    })
+    });
   });
 }
 
@@ -150,7 +150,7 @@ module.exports = {
             color: config.ATTACHMENT_COLOR,
             text: result.example,
             author_name: `Urban Dictionary | Define '${word}'`,
-            author_link: result.url,
+            author_link: result.url
           }]
         });
       })
@@ -173,8 +173,8 @@ module.exports = {
           attachments: [{
             color: config.ATTACHMENT_COLOR,
             text: result.definition,
-            author_name: `Dictionary API`,
-            author_link: 'http://www.dictionaryapi.com/',
+            author_name: 'Dictionary API',
+            author_link: 'http://www.dictionaryapi.com/'
           }]
         });
       })

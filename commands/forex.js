@@ -29,7 +29,7 @@ function convertForex(amount, base) {
         // Parse HTML with cheerio
         let $ = cheerio.load(html);
         // jQuery style selector
-        let result = $('span.uccResultAmount').text().replace("GHS", "").replace(/\s\s*$/, '');
+        let result = $('span.uccResultAmount').text().replace('GHS', '').replace(/\s\s*$/, '');
         // resolve promise if successful
         resolve({
           amount: `GH¢ ${result}`,
@@ -39,7 +39,7 @@ function convertForex(amount, base) {
         // reject if an error, false for if there was no error but status code wasn't 200
         reject(error || false);
       }
-    })
+    });
   });
 }
 
@@ -55,8 +55,8 @@ module.exports = (base, symbol) => {
       .then(result => bot.reply(message, `*${symbol}${amount}* is equivalent to *${result.amount}* at an exchange rate of _${result.exchangeRate}_`))
       // catch error, return appropriate message
       .catch(err => {
-        cosnole.log(err)
+        console.log(err);
         bot.reply(message, 'Oh my...something embarassing happened. Try again.');
       });
-  }
+  };
 };
