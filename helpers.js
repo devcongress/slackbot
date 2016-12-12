@@ -1,6 +1,6 @@
 'use strict';
 
-const config = require('config');
+const config = require('./config');
 const gcal = require('googleapis').calendar('v3');
 
 module.exports = {
