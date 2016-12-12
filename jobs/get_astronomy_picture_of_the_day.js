@@ -7,6 +7,7 @@
 'use strict';
 
 const config = require('../config');
+const request = require('request');
 
 /**
  * A method to get definition of word from APOD
@@ -22,7 +23,7 @@ function getAstronomyPictureOfTheDay() {
           let json = JSON.parse(body);
           return resolve(json);
         } catch (error) {
-          return reject(error)
+          return reject(error);
         }
       }
       return reject(error);
@@ -54,9 +55,9 @@ module.exports = (channel, bot) => {
         as_user: true,
         icon_url: config.ICON_URL,
         text: 'Incoming from https://apod.nasa.gov/apod/astropix.html',
-        username: 'NASA',
+        username: 'NASA'
       });
     }).
     catch(err => console.error(err));
-  }
+  };
 };

@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const forexConversionCommand = require('./forex');
 const {
@@ -35,13 +35,13 @@ module.exports = (controller) => {
 
   // Urban Definition command
   controller.hears(
-    ['urban-define', 'what\'s the urban meaning of', 'whats the urban meaning of'], ['direct_message', 'direct_mention', 'mention'],
+    ['define', 'what\'s the urban meaning of', 'whats the urban meaning of'], ['direct_message', 'direct_mention', 'mention'],
     urbanDefinitionCommand
   );
 
   // Definition command
   controller.hears(
-    ['define', 'what\'s the meaning of', 'whats the meaning of'], ['direct_message', 'direct_mention', 'mention'],
+    ['real-define', 'what\'s the meaning of', 'whats the meaning of'], ['direct_message', 'direct_mention', 'mention'],
     definitionCommand
   );
-}
+};

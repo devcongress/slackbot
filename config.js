@@ -1,5 +1,5 @@
 module.exports = {
-  ATTACHMENT_COLOR: "#4abfa4",
+  ATTACHMENT_COLOR: '#4abfa4',
   APOD_API_URL: `https://api.nasa.gov/planetary/apod?api_key=${process.env.APOD_API_KEY}`,
   APOD_WEB_URL: 'https://apod.nasa.gov/apod/astropix.html',
   XE_WEB_URL: 'http://www.xe.com/currencyconverter/convert',
@@ -11,4 +11,4 @@ module.exports = {
   DICTIONARY_API_BASE_URL: 'http://www.dictionaryapi.com/api/v1/references/collegiate/xml',
   GCAL_API_KEY: process.env.GCAL_API_KEY,
   GHANA_TECH_CAL_ID: process.env.GHANA_TECH_CAL_ID
-}
+};

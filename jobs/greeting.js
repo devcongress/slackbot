@@ -15,5 +15,5 @@ module.exports = (channelId, bot, message = 'Good morning') => {
       icon_url: config.ICON_URL,
       as_user: false
     });
-  }
+  };
 };
