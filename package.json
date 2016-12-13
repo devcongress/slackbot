@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "generate": "plop --plopfile tools/generators/index.js"
   },
   "author": "Andrew Smith",
@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "eslint": "^3.9.0",
-    "node": "6.3.1",
+    "jest": "^17.0.3",
     "plop": "^1.6.0"
   }
 }
