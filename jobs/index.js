@@ -12,10 +12,10 @@ module.exports = (scheduler, bot) => {
   const announceEventsHappeningTodayCommand = require('./announce_events_happening_today')(config.EVENTS_ID, config.ICON_URL, bot);
   const announceEventsHappeningTomorrowCommand = require('./announce_events_happening_tomorrow')(config.EVENTS_ID, config.ICON_URL, bot);
 
-  scheduler.scheduleJob('30 9 * * *', goodMorningGreetingCommand);
-  scheduler.scheduleJob('31 9 * * *', getMotivationalMessageCommand);
+  scheduler.scheduleJob('00 8 * * *', goodMorningGreetingCommand);
+  scheduler.scheduleJob('30 9 * * *', getMotivationalMessageCommand);
   scheduler.scheduleJob('30 23 * * *', goodNightGreetingCommand);
   scheduler.scheduleJob('0 13 * * *', getAstronomyPictureOfTheDayCommand);
-  scheduler.scheduleJob('31 9 * * *', announceEventsHappeningTodayCommand);
+  scheduler.scheduleJob('00 10 * * *', announceEventsHappeningTodayCommand);
   scheduler.scheduleJob('0 16 * * *', announceEventsHappeningTomorrowCommand);
 };
