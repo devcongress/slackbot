@@ -13,110 +13,38 @@
 */
 'use strict';
 
-let Botkit = require('botkit');
+const Botkit = require('botkit');
 
 // To schedule the bot to say words at a certain date/time or recurringly
-let schedule = require('node-schedule');
+const scheduler = require('node-schedule');
 
 if (!process.env.token) {
   console.log('Error: Specify token in environment');
   process.exit(1);
 }
 
-let appName = 'MyApp';
-let channelIdForGeneral = '';
-let channelIdForRandom = '';
-let iconUrl = '';
-
-if (process.env.appName) {
-  appName = process.env.appName;
-}
-
-if (process.env.generalId) {
-  channelIdForGeneral = process.env.generalId;
-}
-
-if (process.env.randomId) {
-  channelIdForRandom = process.env.randomId;
-}
-
-if (process.env.iconUrl) {
-  iconUrl = process.env.iconUrl;
-}
-
-let controller = Botkit.slackbot({
+// Initialise Bot Controller
+const controller = Botkit.slackbot({
   debug: false
 });
 
-let bot = controller.spawn({
+// Initialise Bot
+const bot = controller.spawn({
   token: process.env.token
 });
 
+// Start Bot
 bot.startRTM(function (err) {
   if (err) {
     throw new Error(err);
   }
 });
 
-// Load commands here
-let greetingCommand = require('./commands/greeting');
-let welcomeCommand = require('./commands/welcome')(appName, channelIdForGeneral);
-let morningConvoCommand = require('./commands/morning_conversation')(appName, channelIdForGeneral);
-let forexConversionCommand = require('./commands/forex');
-let definitionCommand = require('./commands/definition')();
+// Initialise Command Listeners
+require('./commands')(controller);
 
-let goodMorningGreetingCommand = greetingCommand(channelIdForGeneral, iconUrl, bot);
-let goodNightGreetingCommand = greetingCommand(channelIdForGeneral, iconUrl, bot, `Good night ${appName}`);
-let getAstronomyPictureOfTheDayCommand = require('./commands/get_astronomy_picture_of_the_day')(channelIdForRandom, iconUrl, bot);
+// Schedule Jobs
+require('./jobs')(scheduler, bot);
 
-// scheduled messages
-schedule.scheduleJob('30 9 * * *', goodMorningGreetingCommand);
-schedule.scheduleJob('30 23 * * *', goodNightGreetingCommand);
-schedule.scheduleJob('0 13 * * *', getAstronomyPictureOfTheDayCommand);
-
-// Welcome command
-controller.on('user_channel_join', welcomeCommand);
-
-// Welcome for bot when it joins a channel - only used for testing
-// controller.on('bot_channel_join', welcomeCommand);
-
-// Morning Conversation command
-controller.hears(
-  ['morning', 'Good morning'],
-  ['direct_message', 'direct_mention', 'mention'],
-  morningConvoCommand
-);
-
-// Forex Conversion command
-// Great Britain Pound
-controller.hears(
-  ['(?=.)^gbp \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'],
-  ['direct_message', 'direct_mention', 'mention'],
-  forexConversionCommand('gbp', '£')
-);
-
-// US Dollar
-controller.hears(
-  ['(?=.)^usd \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'],
-  ['direct_message', 'direct_mention', 'mention'],
-  forexConversionCommand('usd', '$')
-);
-
-// Euro
-controller.hears(
-  ['(?=.)^eur \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'],
-  ['direct_message', 'direct_mention', 'mention'],
-  forexConversionCommand('eur', '€')
-);
-
-// Definition command
-controller.hears(
-  ['define', 'what\'s the meaning of', 'whats the meaning of'],
-  ['direct_message', 'direct_mention', 'mention'],
-  definitionCommand
-);
-
-//   bot.startPrivateConversation(message,function(err,dm) {
-//     dm.say('Private reply!');
-//   });
-// });
+// Initialise Event Listeners
+require('./events')(controller);
