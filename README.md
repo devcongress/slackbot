@@ -11,7 +11,7 @@
 
 ## Teaching the bot new tricks
 
-- Read the Contribution guide.
+- Read the [Contribution Guide](https://github.com/devcongress/slackbot/blob/develop/CONTRIBUTING.md).
 - Open your terminal and run `npm run generate`, follow the prompts to scaffold the required files.
 - Replace the scaffolded code with your own
 - Submit a PR
