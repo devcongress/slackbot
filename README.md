@@ -9,9 +9,14 @@
 - forex echange to GH¢ e.g. `@botname usd 20`
 - `define` word: grabs the meaning of word from the Urban Dictionary
 
-## Commands
+## Teaching the bot new tricks
 
-You can add new commands under the `commands` directory and load them into the `index.js` file.
+- Read the [Contribution Guide](https://github.com/devcongress/slackbot/blob/develop/CONTRIBUTING.md).
+- Open your terminal and run `npm run generate`, follow the prompts to scaffold the required files.
+- Replace the scaffolded code with your own
+- Submit a PR
+
+Find relevant documentation at [Botkit](https://github.com/howdyai/botkit/blob/master/readme.md) and [Slack API](https://api.slack.com/)
 
 ## Installation
 

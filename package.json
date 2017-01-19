@@ -3,9 +3,14 @@
   "version": "0.1.0",
   "description": "DevCongress slack bot",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/devcongress/slackbot.git"
+  },
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "generate": "plop --plopfile tools/generators/index.js"
   },
   "author": "Andrew Smith",
   "license": "MIT",
@@ -19,9 +24,12 @@
     "xml2js": "^0.4.17"
   },
   "engines": {
-    "node": "6.3.1"
+    "node": "6.3.1",
+    "npm": ">=3"
   },
   "devDependencies": {
-    "eslint": "^3.9.0"
+    "eslint": "^3.9.0",
+    "jest": "^17.0.3",
+    "plop": "^1.6.0"
   }
 }
