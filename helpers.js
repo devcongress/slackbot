@@ -70,7 +70,7 @@ module.exports = {
    * @return {String}
    */
   pluralize(count, word) {
-    Math.abs(count) === 1 ? String(word) : String(word) + 's';
+    return Math.abs(count) === 1 ? String(word) : String(word) + 's';
   },
 
   /**
