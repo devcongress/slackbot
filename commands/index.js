@@ -37,15 +37,15 @@ module.exports = (controller) => {
     forexConversionCommand('eur', '€')
   );
 
-  // Urban Definition command
-  controller.hears(
-    ['define', 'what\'s the urban meaning of', 'whats the urban meaning of'], ['direct_message', 'direct_mention', 'mention'],
-    urbanDefinitionCommand
-  );
-
   // Definition command
   controller.hears(
     ['real-define', 'what\'s the meaning of', 'whats the meaning of'], ['direct_message', 'direct_mention', 'mention'],
     definitionCommand
+  );
+  
+  // Urban Definition command
+  controller.hears(
+    ['define', 'what\'s the urban meaning of', 'whats the urban meaning of'], ['direct_message', 'direct_mention', 'mention'],
+    urbanDefinitionCommand
   );
 };
