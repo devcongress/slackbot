@@ -8,7 +8,7 @@ module.exports = {
   RANDOM_ID: process.env.randomId || '',
   EVENTS_ID: process.env.eventsId || '',
   ICON_URL: process.env.iconUrl || '',
-  DICTIONARY_API_BASE_URL: 'http://www.dictionaryapi.com/api/v1/references/collegiate/xml',
+  DICTIONARY_API_BASE_URL: 'https://owlbot.info/api/v1/dictionary',
   GCAL_API_KEY: process.env.GCAL_API_KEY,
   GHANA_TECH_CAL_ID: process.env.GHANA_TECH_CAL_ID
 };
