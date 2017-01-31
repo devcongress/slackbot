@@ -12,18 +12,14 @@ module.exports = {
   DICTIONARY_API_BASE_URL: 'https://owlbot.info/api/v1/dictionary',
   GCAL_API_KEY: process.env.GCAL_API_KEY,
   GHANA_TECH_CAL_ID: process.env.GHANA_TECH_CAL_ID,
-  CURRENCIES: {
-    euros: 'EUR',
-    dollars: 'USD',
-    pounds: 'GBP'
-  },
   CURRENCY_SYMBOLS :{
-    euros: '€',
-    dollars: '$',
-    pounds: '£'
+    EUR: '€',
+    USD: '$',
+    GBP: '£'
   },
   NLP_INTENTS : {
     WORD_DEFINITION: 'define-word',
-    GHS_CONVERSION: 'convert-to-ghana-cedis'
+    GHS_CONVERSION: 'convert-to-ghana-cedis',
+    CONVERT_FROM_X_TO_Y: 'convert-from-x-to-y'
   }
 };

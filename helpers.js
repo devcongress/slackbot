@@ -10,7 +10,8 @@ module.exports = {
    * @return String
    */
   stripCommas(invalidNumber) {
-    return parseFloat(invalidNumber.replace(',', '').trim()).toFixed(2);
+    // return parseFloat(invalidNumber.replace(',', '').trim()).toFixed(2);
+    return invalidNumber.toString().replace(new RegExp(',', 'g'), '');
   },
 
   /**

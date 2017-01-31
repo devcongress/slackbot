@@ -2,7 +2,7 @@
 
 // Load commands here
 const apiai = require('apiai');
-const app = apiai(process.env.API_AI_TOKEN);
+const api_ai = apiai(process.env.API_AI_TOKEN);
   
 const forexConversionCommand = require('./forex');
 const {
@@ -16,28 +16,57 @@ function generateRandomSessionId() {
   return Math.floor((Math.random() * 9999) + 1).toString();
 }
 
-function runNLPResponse(bot, message) {
-  const request = app.textRequest(message.text, {
+function getCurrencySymbol(currency) {
+  return config.CURRENCY_SYMBOLS[currency] ? config.CURRENCY_SYMBOLS[currency] : '';
+}
+
+function isObject(key) {
+  return key && typeof key === 'object';
+}
+
+function runNLPResponse(api_ai, bot, message) {
+  const request = api_ai.textRequest(message.text, {
     sessionId: generateRandomSessionId()
   });
 
   request.on('response', response => {
-    switch (response.result.metadata.intentName) {
+    if(!response.result.actionIncomplete) {
+      switch (response.result.metadata.intentName) {
 
-    case config.NLP_INTENTS.WORD_DEFINITION:
-      definitionCommand(bot, message, response.result.parameters['any']);
-      break;
+      case config.NLP_INTENTS.WORD_DEFINITION:
+        definitionCommand(bot, message, response.result.parameters['any']);
+        break;
 
-    case config.NLP_INTENTS.GHS_CONVERSION: // eslint-disable-line no-case-declarations
-      const amount = response.result.parameters['input-money']; // the captured amount
-      const currency = response.result.parameters['input-currency'];
-      forexConversionCommand(config.CURRENCIES[currency], config.CURRENCY_SYMBOLS[currency], amount)(bot, message);
-      break;
+      case config.NLP_INTENTS.GHS_CONVERSION: // eslint-disable-line no-case-declarations
+        if(isObject(response.result.parameters['unit-currency'])) {
+          const amount = response.result.parameters['unit-currency'].amount; // the captured amount
+          const currency = response.result.parameters['unit-currency'].currency;
+          forexConversionCommand(currency, getCurrencySymbol(currency), amount)(bot, message);
+        } else {
+          bot.reply(message, 'Sorry, your query should be in the form `Convert 50 usd`, with the 3 character currency code.');  
+        }
+        
+        break;
 
-    default:
-      break;
+      case config.NLP_INTENTS.CONVERT_FROM_X_TO_Y: // eslint-disable-line no-case-declarations
+        if(isObject(response.result.parameters['unit-currency'])) {
+          const inputAmount = response.result.parameters['unit-currency'].amount; // the captured amount
+          const inputCurrency = response.result.parameters['unit-currency'].currency;
+          const resultCurrency = response.result.parameters['currency-name'];
+          forexConversionCommand(inputCurrency, getCurrencySymbol(inputCurrency), inputAmount, resultCurrency)(bot, message);
+        } else {
+          bot.reply(message, 'Sorry, your query should be in the form `Convert 50 usd to ngn`, with the 3 character currency codes.');  
+        }
+        break;
+
+      default:
+        break;
+      }
+    } else {
+      bot.reply(message, 'Sorry, your query seems incomplete. Please refer to the docs for usage rules');     
     }
   });
+  
 
   request.on('error', () => {
     bot.reply(message, 'Oh my...something embarassing happened. Try again.');
@@ -64,5 +93,5 @@ module.exports = (controller) => {
   );
 
   // reply to a direct mention - @anansi 
-  controller.on(['direct_message', 'direct_mention'], (bot, message) => runNLPResponse(bot, message));
+  controller.on(['direct_message', 'direct_mention'], (bot, message) => runNLPResponse(api_ai, bot, message));
 };
