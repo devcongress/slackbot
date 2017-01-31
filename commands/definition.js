@@ -7,7 +7,6 @@
 const request = require('request');
 const random_ua = require('random-ua');
 const cheerio = require('cheerio');
-const parseXMLString = require('xml2js').parseString;
 const {
   capitalizeFirstLetter
 } = require('../helpers');
@@ -40,7 +39,7 @@ function sanitizeAndFormatWord(word) {
  * @return string 
  */
 function dictionaryApiUrlBuilder(word) {
-  return `${config.DICTIONARY_API_BASE_URL}/${word}?key=${process.env.DICTIONARY_API_KEY}`;
+  return `${config.DICTIONARY_API_BASE_URL}/${word}`;
 }
 
 /**
@@ -88,9 +87,9 @@ function getUrbanDefinition(word) {
 }
 
 /**
- * A method to get definition of word from www.dictionaryapi.com
+ * A method to get definition of word
  * @param  String word
- * @return Object {url, definition}
+ * @return Object {definition}
  */
 function getDefinition(word) {
   return new Promise((resolve, reject) => {
@@ -99,35 +98,16 @@ function getDefinition(word) {
       headers: {
         'User-Agent': random_ua.generate()
       }
-    }, (error, response, xml) => {
+    }, (error, response, data) => {
       if (!error && response.statusCode == 200) {
+        const response = JSON.parse(data).reduce((previousEntry, currentEntry) => {
+          return `${previousEntry}• *${currentEntry.type.toUpperCase()}*\n${currentEntry.defenition}\n_${currentEntry.example || 'N/A'}_\n\n`;
+        }, '').replace('<b>', '*').replace('</b>', '*').replace('<i>', '_').replace('</i>', '_');
 
-        try {
-          parseXMLString(xml, function (err, result) {
-            if (result.entry_list.entry) {
-              var definition = result.entry_list.entry
-                .reduce((previousEntry, currentEntry) => {
-                  return previousEntry + currentEntry.fl.toString().toUpperCase() + '\n' + currentEntry.def.reduce((previousDefinition, currentDefinition) => {
-                    return previousDefinition + currentDefinition.dt.reduce((previousDt, currentDt) => {
-                      return definitionBuilder(previousDt, currentDt);
-                    }, '');
-                  }, '');
-                }, '');
+        return resolve(response);
 
-              return resolve({
-                url,
-                definition
-              });
-            } else {
-              return resolve({
-                url,
-                definition: 'Word does not compute. Sending request to London SW1A 1AA, United Kingdom'
-              });
-            }
-          });
-        } catch (error) {
-          reject(error);
-        }
+      } else {
+        reject();
       }
     });
   });
@@ -154,32 +134,43 @@ module.exports = {
           }]
         });
       })
-      .catch(err => {
+      .catch(() => {
         bot.reply(message, 'Oh my...something embarassing happened. Try again.');
       });
   },
-  definitionCommand: (bot, message) => {
+  definitionCommand: (bot, message, text='') => {
     // Strip message down to word(s) to be defined
-    let keyword = message.match[0];
-    let word = message.text.replace(keyword, '')
-      .split(' ').splice(1, 2).join(' ');
+    let keyword = '';
+    let word = '';
+
+    if(text) {
+      word = text;
+    } else {
+      keyword = message.match[0];
+      word = message.text.replace(keyword, '').split(' ').splice(1, 2).join(' ');
+    }
+
     // Show bot is typing for best UX
     bot.startTyping(message);
     // Call helper function to do conversion
     getDefinition(word.toLowerCase())
       .then(result => {
-        bot.reply(message, {
-          text: `Definition for *${word}*:`,
-          attachments: [{
-            color: config.ATTACHMENT_COLOR,
-            text: result.definition,
-            author_name: 'Dictionary API',
-            author_link: 'http://www.dictionaryapi.com/'
-          }]
-        });
+        if(result) {
+          bot.reply(message, {
+            text: `Definition for *${word}*:`,
+            attachments: [{
+              color: config.ATTACHMENT_COLOR,
+              text: result,
+              mrkdwn_in: ['text']
+            }]
+          });
+        } else {
+          bot.reply(message, '¯\\_(ツ)_/¯ Sorry, couldn\'t find a definition for that');
+        }
+        
       })
-      .catch(err => {
+      .catch(() => {
         bot.reply(message, 'Oh my...something embarassing happened. Try again.');
       });
   }
-}
+};

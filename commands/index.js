@@ -1,12 +1,51 @@
 'use strict';
 
 // Load commands here
+const apiai = require('apiai');
+const app = apiai(process.env.API_AI_TOKEN);
+  
 const forexConversionCommand = require('./forex');
 const {
-  definitionCommand,
-  urbanDefinitionCommand
+  definitionCommand
 } = require('./definition');
 const morningConvoCommand = require('./morning_conversation');
+const jokeCommand = require('./joke');
+const config = require('../config');
+
+function generateRandomSessionId() {
+  return Math.floor((Math.random() * 9999) + 1).toString();
+}
+
+function runNLPResponse(bot, message) {
+  const request = app.textRequest(message.text, {
+    sessionId: generateRandomSessionId()
+  });
+
+  request.on('response', response => {
+    switch (response.result.metadata.intentName) {
+
+    case config.NLP_INTENTS.WORD_DEFINITION:
+      definitionCommand(bot, message, response.result.parameters['any']);
+      break;
+
+    case config.NLP_INTENTS.GHS_CONVERSION: // eslint-disable-line no-case-declarations
+      const amount = response.result.parameters['input-money']; // the captured amount
+      const currency = response.result.parameters['input-currency'];
+      forexConversionCommand(config.CURRENCIES[currency], config.CURRENCY_SYMBOLS[currency], amount)(bot, message);
+      break;
+
+    default:
+      break;
+    }
+  });
+
+  request.on('error', () => {
+    bot.reply(message, 'Oh my...something embarassing happened. Try again.');
+  });
+
+  request.end();
+}
+
 
 module.exports = (controller) => {
 
@@ -18,34 +57,12 @@ module.exports = (controller) => {
     morningConvoCommand
   );
 
-  // Forex Conversion command
-  // Great Britain Pound
+  // Tell Joke Command
   controller.hears(
-    ['(?=.)^gbp \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'], ['direct_message', 'direct_mention', 'mention'],
-    forexConversionCommand('gbp', '£')
+    ['joke', 'lighten\s+the\s+mood', 'laugh'], ['direct_message', 'direct_mention', 'mention'],
+    jokeCommand
   );
 
-  // US Dollar
-  controller.hears(
-    ['(?=.)^usd \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'], ['direct_message', 'direct_mention', 'mention'],
-    forexConversionCommand('usd', '$')
-  );
-
-  // Euro
-  controller.hears(
-    ['(?=.)^eur \?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$'], ['direct_message', 'direct_mention', 'mention'],
-    forexConversionCommand('eur', '€')
-  );
-
-  // Definition command
-  controller.hears(
-    ['real-define', 'what\'s the meaning of', 'whats the meaning of'], ['direct_message', 'direct_mention', 'mention'],
-    definitionCommand
-  );
-  
-  // Urban Definition command
-  controller.hears(
-    ['define', 'what\'s the urban meaning of', 'whats the urban meaning of'], ['direct_message', 'direct_mention', 'mention'],
-    urbanDefinitionCommand
-  );
+  // reply to a direct mention - @anansi 
+  controller.on(['direct_message', 'direct_mention'], (bot, message) => runNLPResponse(bot, message));
 };
