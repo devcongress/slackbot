@@ -31,7 +31,10 @@ function runNLPResponse(bot, message) {
     case config.NLP_INTENTS.GHS_CONVERSION: // eslint-disable-line no-case-declarations
       const amount = response.result.parameters['input-money']; // the captured amount
       const currency = response.result.parameters['input-currency'];
-      forexConversionCommand(config.CURRENCIES[currency], config.CURRENCY_SYMBOLS[currency], amount)(bot, message);
+      const currencyValue = config.CURRENCIES[currency] !== undefined ? config.CURRENCIES[currency] : currency;
+      const currencySymbol = config.CURRENCY_SYMBOLS[currency] !== undefined ? config.CURRENCY_SYMBOLS[currency] : "";
+        
+      forexConversionCommand(currencyValue, config.CURRENCY_SYMBOLS[currency], amount)(bot, message);
       break;
 
     default:
