@@ -6,8 +6,8 @@
 
 - welcome new members
 - greet in the morning and night
-- forex echange to GH¢ e.g. `@botname usd 20`
-- `define` word: grabs the meaning of word from the Urban Dictionary
+- forex echange to GH¢ e.g. `@botname convert 20 euros` or `@botname convert $30`
+- Define common Englih words e.g. `@botname define fire` or `@botname What is the meaning of marketing`
 
 ## Teaching the bot new tricks
 

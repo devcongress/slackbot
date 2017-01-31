@@ -15,6 +15,7 @@
   "author": "Andrew Smith",
   "license": "MIT",
   "dependencies": {
+    "apiai": "^3.0.3",
     "botkit": "^0.2.2",
     "cheerio": "^0.20.0",
     "googleapis": "^14.1.0",
