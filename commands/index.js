@@ -34,7 +34,7 @@ function runNLPResponse(bot, message) {
       const currencyValue = config.CURRENCIES[currency] !== undefined ? config.CURRENCIES[currency] : currency;
       const currencySymbol = config.CURRENCY_SYMBOLS[currency] !== undefined ? config.CURRENCY_SYMBOLS[currency] : "";
         
-      forexConversionCommand(currencyValue, config.CURRENCY_SYMBOLS[currency], amount)(bot, message);
+      forexConversionCommand(currencyValue, currencySymbol, amount)(bot, message);
       break;
 
     default:
