@@ -3,6 +3,7 @@ module.exports = {
   APOD_API_URL: `https://api.nasa.gov/planetary/apod?api_key=${process.env.APOD_API_KEY}`,
   APOD_WEB_URL: 'https://apod.nasa.gov/apod/astropix.html',
   XE_WEB_URL: 'http://www.xe.com/currencyconverter/convert',
+  ICNDB: 'http://api.icndb.com/jokes/random',
   APP_NAME: process.env.appName || 'MyApp',
   GENERAL_ID: process.env.generalId || '',
   RANDOM_ID: process.env.randomId || '',

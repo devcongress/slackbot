@@ -9,6 +9,7 @@ const {
   definitionCommand
 } = require('./definition');
 const morningConvoCommand = require('./morning_conversation');
+const jokeCommand = require('./joke');
 const config = require('../config');
 
 function generateRandomSessionId() {
@@ -45,6 +46,7 @@ function runNLPResponse(bot, message) {
   request.end();
 }
 
+
 module.exports = (controller) => {
 
   // Register commands here
@@ -53,6 +55,12 @@ module.exports = (controller) => {
   controller.hears(
     ['morning', 'Good morning'], ['direct_message', 'direct_mention', 'mention'],
     morningConvoCommand
+  );
+
+  // Tell Joke Command
+  controller.hears(
+    ['joke', 'lighten\s+the\s+mood', 'laugh'], ['direct_message', 'direct_mention', 'mention'],
+    jokeCommand
   );
 
   // reply to a direct mention - @anansi 
