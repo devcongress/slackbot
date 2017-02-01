@@ -10,7 +10,7 @@ module.exports = {
    * @return String
    */
   stripCommas(invalidNumber) {
-    return parseFloat(invalidNumber.replace(',', '').trim()).toFixed(2);
+    return invalidNumber.toString().replace(new RegExp(',', 'g'), '');
   },
 
   /**
@@ -107,5 +107,14 @@ module.exports = {
         return resolve(data.items);
       };
     }
+  },
+  /**
+   * checks if param is an object
+   *
+   * @param {any} obj
+   * @return {Boolean}
+   */
+  isObject(obj) {
+    return obj && typeof obj === 'object';
   }
 };
