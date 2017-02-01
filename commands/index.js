@@ -2,12 +2,13 @@
 
 // Load commands here
 const apiai = require('apiai');
-const api_ai = apiai(process.env.API_AI_TOKEN);
+const apiAI = apiai(process.env.API_AI_TOKEN);
   
 const forexConversionCommand = require('./forex');
 const {
   definitionCommand
 } = require('./definition');
+const { isObject } = require('../helpers');
 const morningConvoCommand = require('./morning_conversation');
 const jokeCommand = require('./joke');
 const config = require('../config');
@@ -20,12 +21,8 @@ function getCurrencySymbol(currency) {
   return config.CURRENCY_SYMBOLS[currency] ? config.CURRENCY_SYMBOLS[currency] : '';
 }
 
-function isObject(key) {
-  return key && typeof key === 'object';
-}
-
-function runNLPResponse(api_ai, bot, message) {
-  const request = api_ai.textRequest(message.text, {
+function runNLPResponse(api, bot, message) {
+  const request = api.textRequest(message.text, {
     sessionId: generateRandomSessionId()
   });
 
@@ -63,7 +60,7 @@ function runNLPResponse(api_ai, bot, message) {
         break;
       }
     } else {
-      bot.reply(message, 'Sorry, your query seems incomplete. Please refer to the docs for usage rules');     
+      bot.reply(message, `Sorry, your query seems incomplete. Please refer to the docs for usage rules. ${config.DOCS_URL}`);     
     }
   });
   
@@ -93,5 +90,5 @@ module.exports = (controller) => {
   );
 
   // reply to a direct mention - @anansi 
-  controller.on(['direct_message', 'direct_mention'], (bot, message) => runNLPResponse(api_ai, bot, message));
+  controller.on(['direct_message', 'direct_mention'], (bot, message) => runNLPResponse(apiAI, bot, message));
 };

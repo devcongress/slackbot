@@ -108,5 +108,14 @@ module.exports = {
         return resolve(data.items);
       };
     }
+  },
+  /**
+   * checks if param is an object
+   *
+   * @param {any} obj
+   * @return {Boolean}
+   */
+  isObject(obj) {
+    return obj && typeof obj === 'object';
   }
 };

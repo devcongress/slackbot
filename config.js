@@ -12,6 +12,7 @@ module.exports = {
   DICTIONARY_API_BASE_URL: 'https://owlbot.info/api/v1/dictionary',
   GCAL_API_KEY: process.env.GCAL_API_KEY,
   GHANA_TECH_CAL_ID: process.env.GHANA_TECH_CAL_ID,
+  DOCS_URL: 'https://github.com/devcongress/slackbot/blob/master/README.md',
   CURRENCY_SYMBOLS :{
     EUR: '€',
     USD: '$',
