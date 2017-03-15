@@ -3,7 +3,7 @@
 const config = require('./config');
 const gcal = require('googleapis').calendar('v3');
 
-module.exports = {
+const helpers = {
   /**
    * Create a helper method to strip ',' from amount and return number to 2 decimals
    * @param {String} invalidNumber
@@ -53,7 +53,7 @@ module.exports = {
    * @return Date
    */
   getNextDay(datetime) {
-    const day = this.getStartOfDay(datetime);
+    const day = helpers.getStartOfDay(datetime);
     day.setHours(24);
 
     return day;
@@ -80,13 +80,13 @@ module.exports = {
     if (when !== 'today' && when !== 'tomorrow') return;
 
     let timeMax, timeMin, now = new Date;
-
+    
     if (when === 'today') {
-      timeMax = this.getNextDay(now).toISOString();
-      timeMin = this.getStartOfDay(now).toISOString();
+      timeMax = helpers.getNextDay(now).toISOString();
+      timeMin = helpers.getStartOfDay(now).toISOString();
     } else {
-      timeMax = this.getNextDay(this.getNextDay(now)).toISOString();
-      timeMin = this.getNextDay(now).toISOString();
+      timeMax = helpers.getNextDay(helpers.getNextDay(now)).toISOString();
+      timeMin = helpers.getNextDay(now).toISOString();
     }
 
     return new Promise((resolve, reject) => {
@@ -109,3 +109,5 @@ module.exports = {
     }
   }
 };
+
+module.exports = helpers;
