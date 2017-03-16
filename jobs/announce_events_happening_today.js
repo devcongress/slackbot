@@ -25,8 +25,8 @@ module.exports = (channel, iconUrl, bot) => {
           attachments.push({
             fields: [
               { title: 'Location', value: event.location },
-              { title: 'Start At', value: event.start, short: true },
-              { title: 'Ends At', value: event.end, short: true },
+              { title: 'Start At', value: event.start.dateTime, short: true },
+              { title: 'Ends At', value: event.end.dateTime, short: true },
               { title: 'Description', value: event.description }
             ],
 
