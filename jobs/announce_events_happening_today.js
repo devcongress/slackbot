@@ -8,6 +8,7 @@
 
 const config = require('../config');
 const { getEventsFor, pluralize } = require('../helpers');
+const format = require('date-fns/format');
 
 module.exports = (channel, iconUrl, bot) => {
   return () => {
@@ -25,8 +26,8 @@ module.exports = (channel, iconUrl, bot) => {
           attachments.push({
             fields: [
               { title: 'Location', value: event.location },
-              { title: 'Start At', value: event.start.dateTime, short: true },
-              { title: 'Ends At', value: event.end.dateTime, short: true },
+              { title: 'Start At', value: format(event.start.dateTime, [format='HH:mm']), short: true },
+              { title: 'Ends At', value: format(event.end.dateTime, [format='HH:mm']), short: true },
               { title: 'Description', value: event.description }
             ],
 
