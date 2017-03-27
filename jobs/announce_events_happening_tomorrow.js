@@ -8,35 +8,14 @@
 
 const config = require('../config');
 const { getEventsFor, pluralize } = require('../helpers');
-const format = require('date-fns/format');
+const eventResponse = require('./event_response');
 
 module.exports = (channel, iconUrl, bot) => {
   return () => {
     getEventsFor('tomorrow').
       then(events => {
-        if (events.length) {
-          let i, event,
-            attachments = [],
+        let attachments = eventResponse(events),
             text = `${pluralize(events.length, 'event')} happening tomorrow:`;
-
-          for (i = 0; i < events.length; i++) {
-            event = events[i];
-
-            attachments.push({
-              fields: [
-                { title: 'Location', value: event.location },
-                { title: 'Start At', value: format(event.start.dateTime, [format='ddd, MMM DD, YYYY hh:mma']), short: true },
-                { title: 'Ends At', value: format(event.end.dateTime, [format='ddd, MMM DD, YYYY hh:mma']), short: true },
-                { title: 'Description', value: event.description }
-              ],
-
-              title: event.summary,
-              title_link: event.htmlLink,
-              author_name: event.creator.displayName,
-              author_url: `mailto:${event.creator.email}`,
-              color: config.ATTACHMENT_COLOR
-            });
-          }
 
           bot.api.chat.postMessage({
             text,
