@@ -9,7 +9,7 @@ const {
 
 describe('test helper methods', () => {
   it('should strip comma from the number', () => {
-    expect(stripCommas('1,200')).toBe('1200.00');
+    expect(stripCommas('1,200')).toBe('1200');
   });
 
   it('should capitalize first letter', () => {
