@@ -17,15 +17,14 @@ module.exports = (channel, iconUrl, bot) => {
         let attachments = eventResponse(events),
             text = `${pluralize(events.length, 'event')} happening tomorrow:`;
 
-          bot.api.chat.postMessage({
-            text,
-            channel,
-            attachments,
-            as_user: false,
-            icon_emoji: ':calendar:',
-            username: bot.identity.name
-          });
-        }
+        bot.api.chat.postMessage({
+          text,
+          channel,
+          attachments,
+          as_user: false,
+          icon_emoji: ':calendar:',
+          username: bot.identity.name
+        });
       }).
       catch(err => console.error(err));
   };
