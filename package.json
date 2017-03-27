@@ -18,6 +18,7 @@
     "apiai": "^3.0.3",
     "botkit": "^0.2.2",
     "cheerio": "^0.20.0",
+    "date-fns": "^1.28.1",
     "googleapis": "^14.1.0",
     "node-schedule": "^1.1.1",
     "random-ua": "0.0.6",
