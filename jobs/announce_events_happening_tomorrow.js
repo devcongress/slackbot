@@ -14,6 +14,8 @@ module.exports = (channel, iconUrl, bot) => {
   return () => {
     getEventsFor('tomorrow').
       then(events => {
+        if (!events.length) return;
+        
         let attachments = eventResponse(events),
             text = `${pluralize(events.length, 'event')} happening tomorrow:`;
 
