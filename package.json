@@ -16,7 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "apiai": "^3.0.3",
-    "botkit": "^0.2.2",
+    "botkit": "^0.5.2",
     "cheerio": "^0.20.0",
     "date-fns": "^1.28.1",
     "googleapis": "^14.1.0",
