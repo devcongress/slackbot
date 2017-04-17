@@ -9,6 +9,7 @@ module.exports = {
   RANDOM_ID: process.env.randomId || '',
   EVENTS_ID: process.env.eventsId || '',
   ICON_URL: process.env.iconUrl || '',
+  API_AI_TOKEN: process.env.API_AI_TOKEN || 'pass your own key at runtime',
   DICTIONARY_API_BASE_URL: 'https://owlbot.info/api/v1/dictionary',
   GCAL_API_KEY: process.env.GCAL_API_KEY,
   GHANA_TECH_CAL_ID: process.env.GHANA_TECH_CAL_ID,

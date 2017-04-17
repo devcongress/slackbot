@@ -1,9 +1,6 @@
 'use strict';
 
 // Load commands here
-const apiai = require('apiai');
-const apiAI = apiai(process.env.API_AI_TOKEN);
-  
 const forexConversionCommand = require('./forex');
 const {
   definitionCommand
@@ -12,6 +9,10 @@ const { isObject } = require('../helpers');
 const morningConvoCommand = require('./morning_conversation');
 const jokeCommand = require('./joke');
 const config = require('../config');
+
+// Load apiai init here
+const apiai = require('apiai');
+const apiAI = apiai(config.API_AI_TOKEN);
 
 function generateRandomSessionId() {
   return Math.floor((Math.random() * 9999) + 1).toString();
