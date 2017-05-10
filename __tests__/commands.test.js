@@ -36,7 +36,7 @@ describe('controllers test', () => {
 
   it('should say how are you today?', () => {
     let messages = [
-      buildMessage('Good morning', { deep: 0 })
+      buildMessage('Good morning')
     ];
 
     return this.bot.usersInput(this.buildSequence(messages))
@@ -46,10 +46,10 @@ describe('controllers test', () => {
   });
 
   describe('say i am fine', () => {
-    it('should return text', () => {
+    it('should return text I hope you will have a very productive day today.', () => {
       let messages = [
         buildMessage('Good morning', { isAssertion: false }),
-        buildMessage('fine', { deep: 0 })
+        buildMessage('fine')
       ];
       return this.bot.usersInput(this.buildSequence(messages))
         .then(message => {
