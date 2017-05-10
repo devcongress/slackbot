@@ -10,7 +10,8 @@
   "scripts": {
     "start": "node index.js",
     "test": "jest",
-    "generate": "plop --plopfile tools/generators/index.js"
+    "generate": "plop --plopfile tools/generators/index.js",
+    "shell": "NODE_ENV=development node index.js"
   },
   "author": "Andrew Smith",
   "license": "MIT",
@@ -19,6 +20,7 @@
     "botkit": "^0.5.2",
     "cheerio": "^0.20.0",
     "date-fns": "^1.28.1",
+    "dotenv": "^4.0.0",
     "googleapis": "^14.1.0",
     "node-schedule": "^1.1.1",
     "random-ua": "0.0.6",

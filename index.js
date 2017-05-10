@@ -13,38 +13,53 @@
 */
 'use strict';
 
-const Botkit = require('botkit');
+require('dotenv').config()
 
-// To schedule the bot to say words at a certain date/time or recurringly
-const scheduler = require('node-schedule');
+let controller = {};
 
-if (!process.env.token) {
-  console.log('Error: Specify token in environment');
-  process.exit(1);
-}
+if (process.env.NODE_ENV == 'development') {
+  // Interactive shell for bot
+  const shellbot = require('botkit-shell');
 
-// Initialise Bot Controller
-const controller = Botkit.slackbot({
-  debug: false
-});
+  // Initialise Bot Controller
+  controller = shellbot({});
 
-// Initialise Bot
-const bot = controller.spawn({
-  token: process.env.token
-});
+  // Initialise Bot
+  controller.spawn({});
+} else {
+  const Botkit = require('botkit');
 
-// Start Bot
-bot.startRTM(function (err) {
-  if (err) {
-    throw new Error(err);
+  // To schedule the bot to say words at a certain date/time or recurringly
+  const scheduler = require('node-schedule');
+
+  if (!process.env.TOKEN) {
+    console.log('Error: Specify token in environment');
+    process.exit(1);
   }
-});
+
+  // Initialise Bot Controller
+  controller = Botkit.slackbot({
+    debug: false
+  });
+
+  // Initialise Bot
+  const bot = controller.spawn({
+    token: process.env.TOKEN
+  });
+
+  // Start Bot
+  bot.startRTM(function (err) {
+    if (err) {
+      throw new Error(err);
+    }
+  });
+
+  // Schedule Jobs
+  require('./jobs')(scheduler, bot);
+}
 
 // Initialise Command Listeners
 require('./commands')(controller);
-
-// Schedule Jobs
-require('./jobs')(scheduler, bot);
 
 // Initialise Event Listeners
 require('./events')(controller);
