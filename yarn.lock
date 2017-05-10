@@ -372,6 +372,12 @@ async@^2.0.0-rc.5, async@^2.0.1, async@~2.1.2:
   dependencies:
     lodash "^4.14.0"
 
+async@^2.1.5:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/async/-/async-2.4.0.tgz#4990200f18ea5b837c2cc4f8c031a6985c385611"
+  dependencies:
+    lodash "^4.14.0"
+
 async@~0.2.6:
   version "0.2.10"
   resolved "https://registry.yarnpkg.com/async/-/async-0.2.10.tgz#b6bbe0b0674b9d719708ca38de8c237cb526c3d1"
@@ -639,6 +645,13 @@ botbuilder@^3.2.3:
     rsa-pem-from-mod-exp "^0.8.4"
     sprintf-js "^1.0.3"
     url-join "^1.1.0"
+
+botkit-mock@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/botkit-mock/-/botkit-mock-0.1.0.tgz#010cf89c98ac23005c3e1a5ce9b822a541ef3421"
+  dependencies:
+    async "^2.1.5"
+    botkit "^0.5.2"
 
 botkit-shell@^0.1.5:
   version "0.1.5"
