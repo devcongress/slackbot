@@ -37,10 +37,12 @@ Get a Bot token from Slack:
 
 > http://my.slack.com/services/new/bot
 
+Rename `example.env` to `.env` and update the environment variables in the file.
+
 Run your bot from the command line:
     
 ```bash
-token=<MY TOKEN> node index.js
+node index.js
 ```
 
 The bot is written with botkit which you can learn more about it here [http://howdy.ai/botkit](http://howdy.ai/botkit)
