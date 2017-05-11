@@ -13,7 +13,7 @@
 */
 'use strict';
 
-require('dotenv').config()
+require('dotenv').config();
 
 let controller = {};
 

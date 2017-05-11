@@ -32,6 +32,7 @@
     "npm": ">=3"
   },
   "devDependencies": {
+    "botkit-mock": "^0.1.0",
     "botkit-shell": "^0.1.5",
     "eslint": "^3.9.0",
     "jest": "^17.0.3",
