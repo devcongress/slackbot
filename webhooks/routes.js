@@ -4,10 +4,10 @@ module.exports = (bot) => {
 
   const router = Router();
 
-  router.post('/github', (req, res) => {
+  router.post('/github/elections-api', (req, res) => {
     const { action, number, pull_request, repository } = req.body;
 
-    if(action === 'opened') {
+    if(action === 'opened' || action === 'reopened') {
       const message = `Pull Request #${number} opened on *${repository.full_name}*`;
       const payload = {
         icon_url: config.ICON_URL,
