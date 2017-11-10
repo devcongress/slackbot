@@ -17,7 +17,7 @@ require('dotenv').config();
 
 let controller = {};
 
-if (process.env.NODE_ENV == 'development') {
+if (process.env.NODE_ENV == 'testing') {
   // Interactive shell for bot
   const shellbot = require('botkit-shell');
 
@@ -39,7 +39,7 @@ if (process.env.NODE_ENV == 'development') {
 
   // Initialise Bot Controller
   controller = Botkit.slackbot({
-    debug: false
+    debug: process.env.NODE_ENV === 'development'
   });
 
   // Initialise Bot

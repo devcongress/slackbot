@@ -1,3 +1,4 @@
+/*global describe it expect*/
 const eventResponse = require('../../jobs/event_response');
 
 const data = [{ 
@@ -19,10 +20,10 @@ const data = [{
     self: true
   },
   start: { 
-    dateTime: '2017-03-28T09:00:00Z' 
+    dateTime: '2017-03-28T09:00:00' 
   },
   end: { 
-    dateTime: '2017-03-28T13:00:00Z' 
+    dateTime: '2017-03-28T13:00:00' 
   },
   sequence: 0
 }];

@@ -1,9 +1,8 @@
-"use strict";
+'use strict';
 
-const
-    request = require('request'),
-    randomUA = require('random-ua'),
-    config = require('../config');
+const request = require('request');
+const randomUA = require('random-ua');
+const config = require('../config');
 const { capitalizeFirstLetter } = require('../helpers');
 
 /**

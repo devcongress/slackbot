@@ -12,7 +12,7 @@ module.exports = (bot, message) => {
 
     convo.ask(replyMsg, (response, convo) => {
       // log message and response object for debugging later
-      console.log(new Date() + ' - ' + replyMsg, response);
+      bot.botkit.log(new Date() + ' - ' + replyMsg, response);
 
       // Show bot is typing for best UX
       bot.startTyping(message);

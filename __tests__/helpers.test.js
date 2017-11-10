@@ -1,3 +1,4 @@
+/*global describe it expect*/
 const {
   stripCommas,
   capitalizeFirstLetter,

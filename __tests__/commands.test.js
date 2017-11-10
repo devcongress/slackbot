@@ -1,3 +1,4 @@
+/*global describe beforeEach it expect*/
 require('dotenv').config();
 const Botmock = require('botkit-mock');
 const controllers = require('../commands');
@@ -21,7 +22,7 @@ describe('controllers test', () => {
       type: 'slack'
     });
 
-    this.buildSequence = function (messages){
+    this.buildSequence = function (messages) {
       return [
         {
           user: 'user123',
@@ -29,7 +30,7 @@ describe('controllers test', () => {
           messages: messages
         }
       ];
-    }
+    };
 
     controllers(this.controller);
   });

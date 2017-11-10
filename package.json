@@ -22,6 +22,7 @@
     "date-fns": "^1.28.1",
     "dotenv": "^4.0.0",
     "googleapis": "^14.1.0",
+    "jest-cli": "^21.2.1",
     "node-schedule": "^1.1.1",
     "random-ua": "0.0.6",
     "request": "^2.74.0",
