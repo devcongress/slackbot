@@ -15,7 +15,7 @@ module.exports = (scheduler, bot) => {
   scheduler.scheduleJob('00 8 * * *', goodMorningGreetingCommand);
   scheduler.scheduleJob('30 9 * * *', getMotivationalMessageCommand);
   scheduler.scheduleJob('30 23 * * *', goodNightGreetingCommand);
-  scheduler.scheduleJob('0 13 * * *', getAstronomyPictureOfTheDayCommand);
+  // scheduler.scheduleJob('0 13 * * *', getAstronomyPictureOfTheDayCommand);
   scheduler.scheduleJob('00 6 * * *', announceEventsHappeningTodayCommand);
   scheduler.scheduleJob('0 20 * * *', announceEventsHappeningTomorrowCommand);
   scheduler.scheduleJob('0 16 * * *', announceEventsHappeningTomorrowCommand);
