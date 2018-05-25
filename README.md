@@ -6,9 +6,9 @@
 
 - welcome new members
 - greet in the morning and night
-- forex echange to GH¢ e.g. `@botname convert 20 euros` or `@botname convert $30`
-- forex echange from one currency to another e.g. `@botname convert 20 eur to gbp`
-- Define common Englih words e.g. `@botname define fire` or `@botname What is the meaning of marketing`
+- forex exchange to GH¢ e.g. `@botname convert 20 euros` or `@botname convert $30`
+- forex exchange from one currency to another e.g. `@botname convert 20 eur to gbp`
+- Define common English words e.g. `@botname define fire` or `@botname What is the meaning of marketing`
 
 ## Teaching the bot new tricks
 
@@ -37,10 +37,12 @@ Get a Bot token from Slack:
 
 > http://my.slack.com/services/new/bot
 
+Rename `example.env` to `.env` and update the environment variables in the file.
+
 Run your bot from the command line:
     
 ```bash
-token=<MY TOKEN> node index.js
+node index.js
 ```
 
 The bot is written with botkit which you can learn more about it here [http://howdy.ai/botkit](http://howdy.ai/botkit)
