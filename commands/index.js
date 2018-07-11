@@ -8,6 +8,7 @@ const {
 const { isObject } = require('../helpers');
 const morningConvoCommand = require('./morning_conversation');
 const jokeCommand = require('./joke');
+const botRepo = require('./bot_repo');
 const config = require('../config');
 
 // Load apiai init here
@@ -88,6 +89,12 @@ module.exports = (controller) => {
   controller.hears(
     ['joke', 'lighten\s+the\s+mood', 'laugh'], ['direct_message', 'direct_mention', 'mention'],
     jokeCommand
+  );
+  
+  // Bot Repo
+  controller.hears(
+    ['Where can I find you?', 'repo', 'git', 'whoareyou'], ['direct_message', 'direct_mention', 'mention'],
+    botRepo(config.BOT_REPO_URL)
   );
 
   // reply to a direct mention - @anansi 
