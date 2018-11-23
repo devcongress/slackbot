@@ -8,7 +8,7 @@ module.exports = {
   GENERAL_ID: process.env.GENERAL_ID || '',
   RANDOM_ID: process.env.RANDOM_ID || '',
   EVENTS_ID: process.env.EVENTS_ID || '',
-  RUBY_ID: process.env.RUBY_ID || '',
+  GITHUB_ID: process.env.GITHUB_ID || '',
   ICON_URL: process.env.ICON_URL || '',
   API_AI_TOKEN: process.env.API_AI_TOKEN,
   DICTIONARY_API_BASE_URL: 'https://owlbot.info/api/v1/dictionary',
