@@ -1,22 +1,42 @@
 module.exports = (bot) => {
-  const express = require('express');
-  const bodyParser = require('body-parser');
-  const routes = require('./routes')(bot);
-
-
+  const config = require('../config');
+  const app = require('polka');
+  const { json } = require('body-parser');
   const PORT = process.env.PORT || 3000;
-  const app = express();
 
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({
-    extended: true,
-  }));
+  app()
+    .use(json())
+    .post('/webhooks/github', (req, res) => {
+      const { action, number, pull_request, repository } = req.body;
 
-  app.use('/webhooks', routes);
+      if (action === 'opened' || action === 'reopened') {
+        const message = `Pull Request #${number} opened on *${repository.full_name}*`;
+        const payload = {
+          icon_url: config.ICON_URL,
+          channel: config.RUBY_ID,
+          username: bot.identity.name,
+          as_user: false,
+          attachments: [{
+            author_name: pull_request.user.login,
+            color: config.ATTACHMENT_COLOR,
+            title: 'View on Github',
+            title_link: pull_request.html_url,
+            text: pull_request.title,
+            pretext: message,
+            mrkdwn_in: ['text', 'pretext'],
+            footer: 'Github',
+            footer_icon: 'http://www.zib.de/miltenberger/github-icon.png'
+          }],
+        };
 
-  app.listen(PORT, (err) => {
-    if (err) {
-      throw err;
-    }
-  });
+        bot.say(payload);
+      }
+
+      res.status = 200;
+      res.end();
+    })
+    .listen(PORT, (err) => {
+      if (err) throw err;
+      console.log(`> Running on localhost:3000`);
+    });
 };
