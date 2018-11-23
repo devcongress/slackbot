@@ -56,6 +56,9 @@ if (process.env.NODE_ENV == 'development') {
 
   // Schedule Jobs
   require('./jobs')(scheduler, bot);
+
+  // Initialise Webhooks server
+  require('./webhooks/server')(bot);
 }
 
 // Initialise Command Listeners
