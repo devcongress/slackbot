@@ -13,7 +13,7 @@ module.exports = (bot) => {
         const message = `Pull Request #${number} opened on *${repository.full_name}*`;
         const payload = {
           icon_url: config.ICON_URL,
-          channel: config.RUBY_ID,
+          channel: config.GITHUB_ID,
           username: bot.identity.name,
           as_user: false,
           attachments: [{
