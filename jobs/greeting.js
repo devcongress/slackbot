@@ -4,10 +4,11 @@
  */
 
 const config = require('../config');
+const { logger } = require('../logger');
 
 module.exports = (channelId, bot, message = 'Good morning') => {
   return () => {
-    console.log(new Date() + ' - ' + message);
+    logger.debug(new Date() + ' - ' + message);
     bot.say({
       channel: channelId,
       text: message,

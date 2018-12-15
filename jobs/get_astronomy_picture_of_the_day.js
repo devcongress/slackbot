@@ -8,6 +8,7 @@
 
 const config = require('../config');
 const request = require('request');
+const { logger } = require('../logger');
 
 /**
  * A method to get definition of word from APOD
@@ -58,6 +59,6 @@ module.exports = (channel, bot) => {
         username: 'NASA'
       });
     }).
-    catch(err => console.error(err));
+    catch(err => logger.error(err));
   };
 };

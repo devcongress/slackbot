@@ -13,46 +13,11 @@
 */
 'use strict';
 
-require('dotenv').config();
+const { controller, bot} = require('./bootstrap');
 
-let controller = {};
-
-if (process.env.NODE_ENV == 'development') {
-  // Interactive shell for bot
-  const shellbot = require('botkit-shell');
-
-  // Initialise Bot Controller
-  controller = shellbot({});
-
-  // Initialise Bot
-  controller.spawn({});
-} else {
-  const Botkit = require('botkit');
-
+if (process.env.NODE_ENV !== 'development') {
   // To schedule the bot to say words at a certain date/time or recurringly
   const scheduler = require('node-schedule');
-
-  if (!process.env.TOKEN) {
-    console.log('Error: Specify token in environment');
-    process.exit(1);
-  }
-
-  // Initialise Bot Controller
-  controller = Botkit.slackbot({
-    debug: false
-  });
-
-  // Initialise Bot
-  const bot = controller.spawn({
-    token: process.env.TOKEN
-  });
-
-  // Start Bot
-  bot.startRTM(function (err) {
-    if (err) {
-      throw new Error(err);
-    }
-  });
 
   // Schedule Jobs
   require('./jobs')(scheduler, bot);

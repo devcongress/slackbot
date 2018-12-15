@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const config = require('../config');
+const { logger } = require('../logger');
 const { getEventsFor, pluralize } = require('../helpers');
 const eventResponse = require('./event_response');
 
@@ -28,6 +28,6 @@ module.exports = (channel, iconUrl, bot) => {
           username: bot.identity.name
         });
       }).
-      catch(err => console.error(err));
+      catch(err => logger.error(err));
   };
 };

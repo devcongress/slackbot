@@ -7,6 +7,7 @@
 
 const config = require('../config');
 const request = require('request');
+const { logger } = require('../logger');
 
 /**
  * A method to get daily motivation message
@@ -53,6 +54,6 @@ module.exports = (channel, bot) => {
         username: 'Quote',
         icon_url: config.ICON_URL
       });
-    }).catch(err => console.error(err));
+    }).catch(err => logger.error(err));
   };
 };
