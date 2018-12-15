@@ -4,7 +4,7 @@
  */
 const helpers = require('../helpers');
 const config = require('../config');
-const logger = require('../logger');
+const { logger } = require('../logger');
 
 module.exports = (channelIdForGeneral) => {
   return (bot, message) => {
@@ -17,7 +17,7 @@ module.exports = (channelIdForGeneral) => {
         if (data && data.user && data.user.name) {
           let userHandle = helpers.createUserHandle(message.user, data.user.name);
           let replyMsg = `Welcome to ${config.APP_NAME} ${userHandle}. Remember to fill out the 'What I do' section of your profile.`;
-          console.log(new Date() + ' - ' + replyMsg);
+          logger.debug(new Date() + ' - ' + replyMsg);
           bot.reply(message, replyMsg);
         }
       });
