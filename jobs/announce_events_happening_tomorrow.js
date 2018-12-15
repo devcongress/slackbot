@@ -17,7 +17,7 @@ module.exports = (channel, iconUrl, bot) => {
         if (!events.length) return;
         
         let attachments = eventResponse(events),
-            text = `${pluralize(events.length, 'event')} happening tomorrow:`;
+          text = `${pluralize(events.length, 'event')} happening tomorrow:`;
 
         bot.api.chat.postMessage({
           text,

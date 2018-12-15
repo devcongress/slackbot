@@ -10,7 +10,7 @@ const cheerio = require('cheerio');
 const {
   capitalizeFirstLetter
 } = require('../helpers');
-const config = require('../config');
+const { ATTACHMENT_COLOR, DICTIONARY_API_BASE_URL } = require('../config');
 
 /**
  * Build Definition 
@@ -39,7 +39,7 @@ function sanitizeAndFormatWord(word) {
  * @return string 
  */
 function dictionaryApiUrlBuilder(word) {
-  return `${config.DICTIONARY_API_BASE_URL}/${word}`;
+  return `${DICTIONARY_API_BASE_URL}/${word}`;
 }
 
 /**
@@ -127,7 +127,7 @@ module.exports = {
         bot.reply(message, {
           text: `*${word}:*\n${result.definition}`,
           attachments: [{
-            color: config.ATTACHMENT_COLOR,
+            color: ATTACHMENT_COLOR,
             text: result.example,
             author_name: `Urban Dictionary | Define '${word}'`,
             author_link: result.url
@@ -159,7 +159,7 @@ module.exports = {
           bot.reply(message, {
             text: `Definition for *${word}*:`,
             attachments: [{
-              color: config.ATTACHMENT_COLOR,
+              color: ATTACHMENT_COLOR,
               text: result,
               mrkdwn_in: ['text']
             }]
