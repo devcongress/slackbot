@@ -5,8 +5,9 @@
 
 'use strict';
 
-const config = require('../config');
+const { ICON_URL } = require('../config');
 const request = require('request');
+const { logger } = require('../logger');
 
 /**
  * A method to get daily motivation message
@@ -51,8 +52,8 @@ module.exports = (channel, bot) => {
         as_user: true,
         text: 'Be Inspired',
         username: 'Quote',
-        icon_url: config.ICON_URL
+        icon_url: ICON_URL
       });
-    }).catch(err => console.error(err));
+    }).catch(err => logger.error(err));
   };
 };
