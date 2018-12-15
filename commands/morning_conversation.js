@@ -2,6 +2,8 @@
  * Morning converation with user
  * @author Andrew Smith <a.smith@silentworks.co.uk>
  */
+const { logger } = require('../logger');
+
 module.exports = (bot, message) => {
   let howAreYou = (response, convo) => {
     // Show bot is typing for best UX
@@ -12,7 +14,7 @@ module.exports = (bot, message) => {
 
     convo.ask(replyMsg, (response, convo) => {
       // log message and response object for debugging later
-      console.log(new Date() + ' - ' + replyMsg, response);
+      logger.debug(new Date() + ' - ' + replyMsg, response);
 
       // Show bot is typing for best UX
       bot.startTyping(message);
