@@ -1,9 +1,8 @@
-"use strict";
+'use strict';
 
-const
-    request = require('request'),
-    randomUA = require('random-ua'),
-    config = require('../config');
+const request = require('request');
+const randomUA = require('random-ua');
+const { ICNDB } = require('../config');
 const { capitalizeFirstLetter } = require('../helpers');
 
 /**
@@ -11,11 +10,11 @@ const { capitalizeFirstLetter } = require('../helpers');
  * @return {Object} 
  */
 function getRequestHeaders() {
-    return {
-        headers: {
-            'User-Agent': randomUA.generate()
-        }
+  return {
+    headers: {
+      'User-Agent': randomUA.generate()
     }
+  };
 }
 
 /**
@@ -24,15 +23,15 @@ function getRequestHeaders() {
  * @return {Array}     
  */
 function getMentionedUsers(input) {
-    var pattern = /<@([\d\w]+)>/ig;
-    var matches = [];
-    var match = pattern.exec(input);
-    while (match) {
-        matches.push(match[1]);
-        match = pattern.exec(input);
-    }
+  let pattern = /<@([\d\w]+)>/ig;
+  let matches = [];
+  let match = pattern.exec(input);
+  while (match) {
+    matches.push(match[1]);
+    match = pattern.exec(input);
+  }
 
-    return matches;
+  return matches;
 }
 
 /**
@@ -42,8 +41,8 @@ function getMentionedUsers(input) {
  * @param  {String} joke   
  */
 function postJoke(message, bot, joke) {
-    bot.startTyping(message);
-    bot.reply(message, joke);
+  bot.startTyping(message);
+  bot.reply(message, joke);
 }
 
 /**
@@ -53,8 +52,8 @@ function postJoke(message, bot, joke) {
  * @param  {String} error   
  */
 function postErrorMessage(message, bot, error) {
-    bot.startTyping(message);
-    bot.reply(message, error);
+  bot.startTyping(message);
+  bot.reply(message, error);
 }
 
 /**
@@ -63,18 +62,18 @@ function postErrorMessage(message, bot, error) {
  * @return {Promise} 
  */
 function fetchJoke(character) {
-    let url = `${config.ICNDB}?firstName=${character.firstname}&lastName=${character.lastname}`;
-    return new Promise(
-        (resolve, reject) => {
-            request(url, getRequestHeaders(),
-                (error, response, html) => {
-                    if (!error && response.statusCode == 200) {
-                        resolve(JSON.parse(html).value.joke);
-                    } else {
-                        reject(error || false);
-                    }
-                }); // request
-        }); // Promise
+  let url = `${ICNDB}?firstName=${character.firstname}&lastName=${character.lastname}`;
+  return new Promise(
+    (resolve, reject) => {
+      request(url, getRequestHeaders(),
+        (error, response, html) => {
+          if (!error && response.statusCode == 200) {
+            resolve(JSON.parse(html).value.joke);
+          } else {
+            reject(error || false);
+          }
+        }); // request
+    }); // Promise
 }
 
 /**
@@ -84,21 +83,21 @@ function fetchJoke(character) {
  * @param  {String} user     
  */
 function tellJokeWithUser(message, bot, user) {
-    bot.api.users.info({ user: user }, (error, response) => {
-        if (!error) {
-            let fetchedUser = response.user;
-            let firstname = fetchedUser.first_name || fetchedUser.name;
-            let lastname = fetchedUser.lastname || "";
-            let userDetails = {
-                firstname: capitalizeFirstLetter(firstname),
-                lastname: capitalizeFirstLetter(lastname)
-            };
-            tellJoke(message, bot, userDetails);
-        }
-        else {
-            postErrorMessage(message, bot, "I dont know who you're talking about");
-        }
-    });
+  bot.api.users.info({ user: user }, (error, response) => {
+    if (!error) {
+      let fetchedUser = response.user;
+      let firstname = fetchedUser.first_name || fetchedUser.name;
+      let lastname = fetchedUser.lastname || '';
+      let userDetails = {
+        firstname: capitalizeFirstLetter(firstname),
+        lastname: capitalizeFirstLetter(lastname)
+      };
+      tellJoke(message, bot, userDetails);
+    }
+    else {
+      postErrorMessage(message, bot, 'I dont know who you\'re talking about');
+    }
+  });
 }
 
 /**
@@ -108,24 +107,23 @@ function tellJokeWithUser(message, bot, user) {
  * @param  {String} user     
  */
 function tellJoke(message, bot, user) {
-    user = Object.assign({ firstname: "Chuck", lastname: "Norris" }, user);
-    fetchJoke(user)
-        .then(joke => {
-            postJoke(message, bot, joke);
-        })
-        .catch(error => {
-            postErrorMessage(message, bot, "I got nothing.Guess the joke's on you");
-        });
+  user = Object.assign({ firstname: 'Chuck', lastname: 'Norris' }, user);
+  fetchJoke(user)
+    .then(joke => {
+      postJoke(message, bot, joke);
+    })
+    .catch(error => {
+      postErrorMessage(message, bot, 'I got nothing.Guess the joke\'s on you');
+    });
 }
 
 module.exports = (bot, message) => {
-    let mentions = getMentionedUsers(message.match.input);
-    if (mentions.length > 0) {
-        mentions.forEach((user) => {
-            tellJokeWithUser(message, bot, user)
-        });
-    }
-    else {
-        tellJoke(message, bot);
-    }
+  let mentions = getMentionedUsers(message.match.input);
+  if (mentions.length > 0) {
+    mentions.forEach((user) => {
+      tellJokeWithUser(message, bot, user);
+    });
+  } else {
+    tellJoke(message, bot);
+  }
 };

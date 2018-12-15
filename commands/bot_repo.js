@@ -5,6 +5,6 @@
 module.exports = (botRepoUrl) => {
   return (bot, message) => {
     bot.startTyping(message);
-    bot.reply(message, 'You can contribute to me at ' + botRepoUrl);
-  }
+    bot.reply(message, `You can contribute to me at ${botRepoUrl}`);
+  };
 };
