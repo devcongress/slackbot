@@ -4,6 +4,7 @@
  */
 const helpers = require('../helpers');
 const config = require('../config');
+const logger = require('../logger');
 
 module.exports = (channelIdForGeneral) => {
   return (bot, message) => {
