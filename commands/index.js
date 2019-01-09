@@ -10,18 +10,24 @@ const morningConvoCommand = require('./morning_conversation');
 const jokeCommand = require('./joke');
 const botRepo = require('./bot_repo');
 const jobsCommand = require('./jobs');
-const config = require('../config');
+const {
+  API_AI_TOKEN,
+  CURRENCY_SYMBOLS,
+  NLP_INTENTS,
+  DOCS_URL,
+  BOT_REPO_URL
+} = require('../config');
 
 // Load apiai init here
 const apiai = require('apiai');
-const apiAI = apiai(config.API_AI_TOKEN);
+const apiAI = apiai(API_AI_TOKEN);
 
 function generateRandomSessionId() {
   return Math.floor((Math.random() * 9999) + 1).toString();
 }
 
 function getCurrencySymbol(currency) {
-  return config.CURRENCY_SYMBOLS[currency] ? config.CURRENCY_SYMBOLS[currency] : '';
+  return CURRENCY_SYMBOLS[currency] ? CURRENCY_SYMBOLS[currency] : '';
 }
 
 function runNLPResponse(api, bot, message) {
@@ -33,11 +39,11 @@ function runNLPResponse(api, bot, message) {
     if(!response.result.actionIncomplete) {
       switch (response.result.metadata.intentName) {
 
-      case config.NLP_INTENTS.WORD_DEFINITION:
+      case NLP_INTENTS.WORD_DEFINITION:
         definitionCommand(bot, message, response.result.parameters['any']);
         break;
 
-      case config.NLP_INTENTS.GHS_CONVERSION: // eslint-disable-line no-case-declarations
+      case NLP_INTENTS.GHS_CONVERSION: // eslint-disable-line no-case-declarations
         if(isObject(response.result.parameters['unit-currency'])) {
           const amount = response.result.parameters['unit-currency'].amount; // the captured amount
           const currency = response.result.parameters['unit-currency'].currency;
@@ -48,7 +54,7 @@ function runNLPResponse(api, bot, message) {
 
         break;
 
-      case config.NLP_INTENTS.CONVERT_FROM_X_TO_Y: // eslint-disable-line no-case-declarations
+      case NLP_INTENTS.CONVERT_FROM_X_TO_Y: // eslint-disable-line no-case-declarations
         if(isObject(response.result.parameters['unit-currency'])) {
           const inputAmount = response.result.parameters['unit-currency'].amount; // the captured amount
           const inputCurrency = response.result.parameters['unit-currency'].currency;
@@ -63,7 +69,7 @@ function runNLPResponse(api, bot, message) {
         break;
       }
     } else {
-      bot.reply(message, `Sorry, your query seems incomplete. Please refer to the docs for usage rules. ${config.DOCS_URL}`);
+      bot.reply(message, `Sorry, your query seems incomplete. Please refer to the docs for usage rules. ${DOCS_URL}`);
     }
   });
 
@@ -95,7 +101,7 @@ module.exports = (controller) => {
   // Bot Repo
   controller.hears(
     ['Where can I find you?', 'repo', 'git', 'whoareyou'], ['direct_message', 'direct_mention', 'mention'],
-    botRepo(config.BOT_REPO_URL)
+    botRepo(BOT_REPO_URL)
   );
 
   // List jobs

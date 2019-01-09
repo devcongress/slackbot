@@ -6,7 +6,7 @@
  */
 'use strict';
 
-const config = require('../config');
+const { ATTACHMENT_COLOR } = require('../config');
 const format = require('date-fns/format');
 
 module.exports = (events) => {
@@ -30,7 +30,7 @@ module.exports = (events) => {
       title_link: event.htmlLink,
       author_name: event.creator.displayName,
       author_url: `mailto:${event.creator.email}`,
-      color: config.ATTACHMENT_COLOR
+      color: ATTACHMENT_COLOR
     });
   }
 

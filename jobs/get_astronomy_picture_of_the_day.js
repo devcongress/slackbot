@@ -6,8 +6,9 @@
  */
 'use strict';
 
-const config = require('../config');
+const { APOD_API_URL, ATTACHMENT_COLOR, ICON_URL } = require('../config');
 const request = require('request');
+const { logger } = require('../logger');
 
 /**
  * A method to get definition of word from APOD
@@ -16,7 +17,7 @@ const request = require('request');
  */
 function getAstronomyPictureOfTheDay() {
   return new Promise((resolve, reject) => {
-    const url = config.APOD_API_URL;
+    const url = APOD_API_URL;
     request(url, (error, resp, body) => {
       if (resp.statusCode === 200 && resp.headers['content-type'] === 'application/json') {
         try {
@@ -45,7 +46,7 @@ module.exports = (channel, bot) => {
           short: true
         }],
         author_name: result.title,
-        color: config.ATTACHMENT_COLOR,
+        color: ATTACHMENT_COLOR,
         image_url: result.hdurl
       }];
 
@@ -53,11 +54,11 @@ module.exports = (channel, bot) => {
         channel,
         attachments,
         as_user: true,
-        icon_url: config.ICON_URL,
+        icon_url: ICON_URL,
         text: 'Incoming from https://apod.nasa.gov/apod/astropix.html',
         username: 'NASA'
       });
     }).
-    catch(err => console.error(err));
+    catch(err => logger.error(err));
   };
 };

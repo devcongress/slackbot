@@ -10,7 +10,7 @@ const cheerio = require('cheerio');
 const {
   stripCommas
 } = require('../helpers');
-const config = require('../config');
+const { XE_WEB_URL } = require('../config');
 
 /**
  * A method to scrape forex from www.xe.com
@@ -20,7 +20,7 @@ const config = require('../config');
  */
 function convertForex(amount, base, resultCurrency) {
   return new Promise((resolve, reject) => {
-    request(`${config.XE_WEB_URL}/?Amount=${amount}&From=${base}&To=${resultCurrency}`, {
+    request(`${XE_WEB_URL}/?Amount=${amount}&From=${base}&To=${resultCurrency}`, {
       headers: {
         'User-Agent': random_ua.generate()
       }
