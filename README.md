@@ -9,6 +9,7 @@
 - forex exchange to GH¢ e.g. `@botname convert 20 euros` or `@botname convert $30`
 - forex exchange from one currency to another e.g. `@botname convert 20 eur to gbp`
 - Define common English words e.g. `@botname define fire` or `@botname What is the meaning of marketing`
+- Get jobs from the DevCongress Jobs Board e.g. (DM the bot) `React jobs` or `Jobs for UI designers` or `Node and Rails jobs`
 
 ## Teaching the bot new tricks
 
@@ -40,7 +41,7 @@ Get a Bot token from Slack:
 Rename `example.env` to `.env` and update the environment variables in the file.
 
 Run your bot from the command line:
-    
+
 ```bash
 node index.js
 ```
