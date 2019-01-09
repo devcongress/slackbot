@@ -44,26 +44,10 @@ function getJobs(searchTerm) {
 
 module.exports = (bot, message) => {
   bot.startTyping(message);
-  // Remove matched words (job, jobs) and stop words (https://en.wikipedia.org/wiki/Stop_words)
-  const searchTerms = message.text.split(' ').filter((word) => !stopWords.concat(['job', 'jobs']).includes(word));
 
-  // Make requests for all found words
-  const promises = searchTerms.map((searchTerm) => getJobs(searchTerm));
-  Promise.all(promises).then((arrayOfArrayOfJobs) => {
-    const jobsArray = arrayOfArrayOfJobs.reduce((result, arrayOfJobs) => result.concat(arrayOfJobs), []);
-    // remove duplicate jobs
-    const jobsAdded = new Set();
-    const uniqueJobs = [];
-
-    jobsArray.forEach((job) => {
-      if (!jobsAdded.has(job.url)) {
-        jobsAdded.add(job.url);
-        uniqueJobs.push(job);
-      }
-    });
-
-    if (uniqueJobs.length > 0) {
-      uniqueJobs.forEach((job) => {
+  getJobs(message.text).then((jobs) => {
+    if (jobs.length > 0) {
+      jobs.forEach((job) => {
         bot.reply(message, {
           attachments: [{
             color: config.ATTACHMENT_COLOR,
