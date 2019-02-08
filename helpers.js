@@ -1,7 +1,8 @@
 'use strict';
 
 const config = require('./config');
-const gcal = require('googleapis').calendar('v3');
+const { google } = require('googleapis');
+const gcal = google.calendar({ version: 'v3' });
 
 const helpers = {
   /**

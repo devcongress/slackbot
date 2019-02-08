@@ -18,16 +18,16 @@
   "dependencies": {
     "apiai": "^3.0.3",
     "body-parser": "^1.17.1",
-    "botkit": "^0.5.2",
-    "cheerio": "^0.20.0",
+    "botkit": "^0.7.2",
+    "cheerio": "^0.22.0",
     "date-fns": "^1.28.1",
     "dotenv": "^4.0.0",
-    "googleapis": "^14.1.0",
+    "googleapis": "^37.2.0",
     "node-schedule": "^1.1.1",
     "pino": "^5.10.1",
     "polka": "^0.5.1",
     "random-ua": "0.0.6",
-    "request": "^2.74.0",
+    "request": "^2.88.0",
     "xml2js": "^0.4.17"
   },
   "engines": {
@@ -35,8 +35,8 @@
     "npm": ">=3"
   },
   "devDependencies": {
-    "botkit-mock": "^0.1.0",
-    "botkit-shell": "^0.1.5",
+    "botkit-mock": "^0.1.11",
+    "botkit-shell": "^0.2.0",
     "eslint": "^3.9.0",
     "jest": "^17.0.3",
     "plop": "^1.6.0"
