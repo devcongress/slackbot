@@ -8,7 +8,7 @@
     "url": "git://github.com/devcongress/slackbot.git"
   },
   "scripts": {
-    "start": "node web.js",
+    "start": "concurrently \"node index.js\" \"node web.js\"",
     "test": "jest",
     "generate": "plop --plopfile tools/generators/index.js",
     "shell": "NODE_ENV=development node index.js"
@@ -20,6 +20,7 @@
     "body-parser": "^1.17.1",
     "botkit": "^0.7.2",
     "cheerio": "^0.22.0",
+    "concurrently": "^4.1.0",
     "date-fns": "^1.28.1",
     "dotenv": "^4.0.0",
     "googleapis": "^37.2.0",

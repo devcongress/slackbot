@@ -45,13 +45,6 @@ if (process.env.NODE_ENV == 'development') {
   bot = controller.spawn({
     token: process.env.TOKEN
   });
-
-  // Start Bot
-  bot.startRTM(function (err) {
-    if (err) {
-      throw new Error(err);
-    }
-  });
 }
 
 module.exports = {
