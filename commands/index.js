@@ -10,6 +10,7 @@ const morningConvoCommand = require('./morning_conversation');
 const jokeCommand = require('./joke');
 const botRepo = require('./bot_repo');
 const jobsCommand = require('./jobs');
+
 const {
   API_AI_TOKEN,
   CURRENCY_SYMBOLS,
