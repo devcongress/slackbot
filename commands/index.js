@@ -9,6 +9,8 @@ const { isObject } = require('../helpers');
 const morningConvoCommand = require('./morning_conversation');
 const jokeCommand = require('./joke');
 const botRepo = require('./bot_repo');
+const jobsCommand = require('./jobs');
+
 const {
   API_AI_TOKEN,
   CURRENCY_SYMBOLS,
@@ -48,9 +50,9 @@ function runNLPResponse(api, bot, message) {
           const currency = response.result.parameters['unit-currency'].currency;
           forexConversionCommand(currency, getCurrencySymbol(currency), amount)(bot, message);
         } else {
-          bot.reply(message, 'Sorry, your query should be in the form `Convert 50 usd`, with the 3 character currency code.');  
+          bot.reply(message, 'Sorry, your query should be in the form `Convert 50 usd`, with the 3 character currency code.');
         }
-        
+
         break;
 
       case NLP_INTENTS.CONVERT_FROM_X_TO_Y: // eslint-disable-line no-case-declarations
@@ -60,7 +62,7 @@ function runNLPResponse(api, bot, message) {
           const resultCurrency = response.result.parameters['currency-name'];
           forexConversionCommand(inputCurrency, getCurrencySymbol(inputCurrency), inputAmount, resultCurrency)(bot, message);
         } else {
-          bot.reply(message, 'Sorry, your query should be in the form `Convert 50 usd to ngn`, with the 3 character currency codes.');  
+          bot.reply(message, 'Sorry, your query should be in the form `Convert 50 usd to ngn`, with the 3 character currency codes.');
         }
         break;
 
@@ -68,10 +70,10 @@ function runNLPResponse(api, bot, message) {
         break;
       }
     } else {
-      bot.reply(message, `Sorry, your query seems incomplete. Please refer to the docs for usage rules. ${DOCS_URL}`);     
+      bot.reply(message, `Sorry, your query seems incomplete. Please refer to the docs for usage rules. ${DOCS_URL}`);
     }
   });
-  
+
 
   request.on('error', () => {
     bot.reply(message, 'Oh my...something embarassing happened. Try again.');
@@ -96,13 +98,19 @@ module.exports = (controller) => {
     ['joke', 'lighten\s+the\s+mood', 'laugh'], ['direct_message', 'direct_mention', 'mention'],
     jokeCommand
   );
-  
+
   // Bot Repo
   controller.hears(
     ['Where can I find you?', 'repo', 'git', 'whoareyou'], ['direct_message', 'direct_mention', 'mention'],
     botRepo(BOT_REPO_URL)
   );
 
-  // reply to a direct mention - @anansi 
+  // List jobs
+  controller.hears(
+    ['jobs', 'job'], ['direct_message'],
+    jobsCommand
+  );
+
+  // reply to a direct mention - @anansi
   controller.on(['direct_message', 'direct_mention'], (bot, message) => runNLPResponse(apiAI, bot, message));
 };

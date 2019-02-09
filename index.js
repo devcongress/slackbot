@@ -16,6 +16,13 @@
 const { controller, bot} = require('./bootstrap');
 
 if (process.env.NODE_ENV !== 'development') {
+  // Start Bot
+  bot.startRTM(function (err) {
+    if (err) {
+      throw new Error(err);
+    }
+  });
+  
   // To schedule the bot to say words at a certain date/time or recurringly
   const scheduler = require('node-schedule');
 

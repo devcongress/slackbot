@@ -26,4 +26,5 @@ module.exports = {
     CONVERT_FROM_X_TO_Y: 'convert-from-x-to-y'
   },
   BOT_REPO_URL: process.env.BOT_REPO_URL,
+  JOBS_URL: process.env.JOBS_URL,
 };
