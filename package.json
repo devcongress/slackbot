@@ -18,13 +18,13 @@
   "dependencies": {
     "apiai": "^3.0.3",
     "body-parser": "^1.17.1",
-    "botkit": "^0.7.2",
+    "botkit": "^4.5.0",
     "cheerio": "^0.22.0",
     "concurrently": "^4.1.0",
     "cryptiles": "^4.1.3",
     "date-fns": "^1.28.1",
     "dotenv": "^4.0.0",
-    "googleapis": "^37.2.0",
+    "googleapis": "^43.0.0",
     "hoek": "^6.1.2",
     "node-schedule": "^1.1.1",
     "pino": "^5.10.1",
@@ -39,12 +39,12 @@
     "npm": ">=3"
   },
   "devDependencies": {
-    "botkit-mock": "^0.1.11",
+    "botkit-mock": "^4.0.0",
     "botkit-shell": "^0.2.0",
     "deep-extend": "^0.6.0",
     "eslint": "^3.9.0",
     "https-proxy-agent": "^2.2.1",
-    "jest": "^17.0.3",
+    "jest": "^25.0.0",
     "plop": "^1.6.0",
     "tunnel-agent": "^0.6.0"
   }
