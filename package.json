@@ -43,7 +43,7 @@
     "botkit-shell": "^0.2.0",
     "deep-extend": "^0.6.0",
     "eslint": "^3.9.0",
-    "https-proxy-agent": "^2.2.1",
+    "https-proxy-agent": "^2.2.3",
     "jest": "^17.0.3",
     "plop": "^1.6.0",
     "tunnel-agent": "^0.6.0"
