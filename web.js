@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-const { bot} = require('./bootstrap');
+const { bot } = require("./bootstrap");
 
-if (process.env.NODE_ENV !== 'development') {
+if (process.env.NODE_ENV !== "development") {
   // Initialise Webhooks server
-  require('./webhooks/server')(bot);
+  require("./webhooks/server")(bot);
 }
